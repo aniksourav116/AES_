@@ -5,8 +5,14 @@
  */
 package Assist;
 
+//This is client
+
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,9 +41,29 @@ public class Reciever implements Runnable{
     {
         System.out.println("Started Recieving");
         try {
-            connect();
+            //connect();
+            
+            Socket clientSocket = new Socket("localhost", 9998);
+        
+        ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
+        
+        //Scanner in=new Scanner(System.in);
+        //String message=in.nextLine();
+        
+        oStream.writeObject("message");
+        
+        
+        try {
+            Object recieved = iStream.readObject();
+            System.out.println("From Server"+ (String) recieved );
+            
+        } catch (Exception e) {
+            System.out.println("Test.TestClient.main()");
+        }
         } catch (Exception ex) {
-            System.out.println("Except");
+            //System.out.println("Except");
+            System.out.println(ex);
         }
     }
     

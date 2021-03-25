@@ -5,8 +5,14 @@
  */
 package Assist;
 
+//This is server
+
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,9 +38,25 @@ public class Sender implements Runnable{
     public void run() {
         System.out.println("Sending");
         try {
-            connect();
+            //connect();
+            ServerSocket serverSocket =  new ServerSocket(9999);
+        Socket sock = serverSocket.accept();
+        
+        ObjectOutputStream oStream = new ObjectOutputStream(sock.getOutputStream());
+        ObjectInputStream iStream = new ObjectInputStream(sock.getInputStream());
+        
+        
+        try {
+            Object recieved = iStream.readObject();
+            System.out.println("Recieved"+(String) recieved);
+            
+            oStream.writeObject("Sent From Server");
+            
+        } catch (Exception e) {
+            System.out.println("Test.TestServer.main()");
+        }
         } catch (Exception ex) {
-            System.out.println("Except s");
+            System.out.println(ex);
         }
         
         
