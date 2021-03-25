@@ -39,6 +39,7 @@ public class Sender implements Runnable{
             String payload = "1000";
             oStream.writeObject(payload);
             Object reObject = iStream.readObject();
+            System.out.println((String) reObject);
         } catch (Exception e) {
             System.out.println(e);
         }

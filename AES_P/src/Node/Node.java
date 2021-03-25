@@ -6,6 +6,7 @@
 package Node;
 
 import Assist.*;
+import java.io.IOException;
 
 /**
  *
@@ -16,8 +17,15 @@ public class Node {
     Sender sender;
     Reciever reciever;
     
-    public void recieve()
+    public void recieve() throws IOException
     {
+        reciever = new Reciever(9999);
+        reciever.recieve();
+    }
+    
+    public void send() throws IOException{
+        sender = new Sender(9999);
+        sender.send(9999);
         
     }
     

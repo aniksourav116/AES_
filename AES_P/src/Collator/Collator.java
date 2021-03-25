@@ -6,18 +6,32 @@
 package Collator;
 
 import Assist.*;
+import Node.Node;
+import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
  * @author Anik Sourav
  */
 public class Collator {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         System.out.println("Collator.Collator.main()");
-        Sender sender = new Sender(9999);
-        Reciever reciever = new Reciever(9999);
-        reciever.run();
-        sender.run();
+        
+        Scanner scan = new Scanner(System.in);
+        
+        int choice = scan.nextInt();
+        Node node = new Node();
+        
+        if(choice==1)
+        {
+            node.send();
+            
+        }
+        else
+        {
+            node.recieve();
+        }
         
         
         

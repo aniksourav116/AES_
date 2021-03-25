@@ -28,7 +28,7 @@ public class Reciever implements Runnable{
         this.portID = portID;
     }
     
-    public String Recieve () throws IOException
+    public String recieve () throws IOException
     {
         String payload = "";
         
@@ -41,6 +41,7 @@ public class Reciever implements Runnable{
         try {
             Object message = iStream.readObject();
             
+            System.out.println((String) message);
             payload = (String) message;
             
             String returnMessage = "ACCEPTED";
