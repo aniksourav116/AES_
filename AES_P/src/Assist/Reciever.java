@@ -8,6 +8,7 @@ package Assist;
 //This is client
 
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -25,6 +26,45 @@ public class Reciever implements Runnable{
 
     public Reciever(int portID) {
         this.portID = portID;
+    }
+    
+    public String Recieve () throws IOException
+    {
+        String payload = "";
+        
+        ServerSocket serverSocket = new ServerSocket(portID);
+        Socket socket = serverSocket.accept();
+        
+        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+        
+        try {
+            Object message = iStream.readObject();
+            
+            payload = (String) message;
+            
+            String returnMessage = "ACCEPTED";
+            
+            oStream.writeObject(returnMessage);
+            
+            
+            
+            
+            
+        } catch (Exception e) {
+            System.out.println("Assist.Reciever.Recieve()");
+            System.out.println(e);
+        }
+        
+        
+        
+        
+        
+        return "DONE";
+        
+        
+        
+        
     }
 
     
