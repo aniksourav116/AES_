@@ -6,6 +6,7 @@
 package Assist;
 
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +24,9 @@ public class Reciever implements Runnable{
     
     public void connect() throws Exception{
         ServerSocket servsocket = new ServerSocket(22222);
+        Socket sock = servsocket.accept();
         System.out.println("Reciever Connected");
-        servsocket.close();
+        //servsocket.close();
     }
     
     
