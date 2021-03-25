@@ -28,6 +28,24 @@ public class Sender implements Runnable{
         this.portID = portID;
     }
     
+    public String send(int recieverPrtID) throws IOException
+    {
+        Socket socket = new Socket("localhost",recieverPrtID);
+        
+        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+        
+        try {
+            String payload = "1000";
+            oStream.writeObject(payload);
+            Object reObject = iStream.readObject();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        
+        return "DONE";
+    }
+    
     public void connect() throws Exception{
         Socket sock = new Socket("127.0.0.1",9999);
         System.out.println("Sender Connected");

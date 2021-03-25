@@ -16,6 +16,10 @@ public class Node {
     Sender sender;
     Reciever reciever;
     
+    public void recieve()
+    {
+        
+    }
     
     
     
