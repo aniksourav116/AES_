@@ -5,6 +5,8 @@
  */
 package Collator;
 
+import Assist.*;
+
 /**
  *
  * @author Anik Sourav
@@ -12,6 +14,10 @@ package Collator;
 public class Collator {
     public static void main(String[] args) {
         System.out.println("Collator.Collator.main()");
+        Sender sender = new Sender(9999);
+        Reciever reciever = new Reciever(9999);
+        sender.run();
+        reciever.run();
         
         
         
