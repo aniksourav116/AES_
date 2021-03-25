@@ -11,11 +11,15 @@ package Assist;
  */
 public class Reciever implements Runnable{
     int portID;
+
+    
+    
+    
     
     @Override
     public void run()
     {
-        //asda
+        System.out.println("Started Recieving");
     }
     
 }

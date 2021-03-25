@@ -11,8 +11,17 @@ package Assist;
  */
 public class Sender implements Runnable{
 
+    int portID;
+
+    public Sender(int portID) {
+        this.portID = portID;
+    }
+    
+    
+        
     @Override
     public void run() {
+        System.out.println("Sending");
         
     }
     

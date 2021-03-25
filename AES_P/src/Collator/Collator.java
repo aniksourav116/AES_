@@ -13,6 +13,9 @@ public class Collator {
     public static void main(String[] args) {
         System.out.println("Collator.Collator.main()");
         
+        
+        
+        
     }
     
 }
