@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class TestClient {
     public static void main(String[] args) throws IOException{
-        Socket clientSocket = new Socket("localhost", 9999);
+        Socket clientSocket = new Socket("localhost", 9993);
         
         ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
         ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
