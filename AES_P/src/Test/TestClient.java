@@ -25,15 +25,16 @@ public class TestClient {
         
         
         //Scanner in=new Scanner(System.in);
-        String message="Hi";
-        for (int i = 0; i < 10; i++) {
-            
+        String message="100";
+        for (int i = 0; i < 20; i++) {
+            Integer a = i;
+            message= a.toString();
         
         oStream.writeObject(message);
-        if(message=="stop")
-        {
-            return;
-        }
+        //Scanner in = new Scanner(System.in);
+        //String tt = in.nextLine();
+        
+        
         
         
         try {
@@ -43,11 +44,8 @@ public class TestClient {
         } catch (Exception e) {
             System.out.println("Test.TestClient.main()");
         }
-            if (i>8) {
-                message="stop";
-                
-            }
         }
+        clientSocket.close();
         
         
     }

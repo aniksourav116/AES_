@@ -37,7 +37,16 @@ public class TestServer {
             oStream.writeObject("Sent From Server");
             
         } catch (Exception e) {
+            sock.close();
+            serverSocket.close();           
+            
             System.out.println(e);
+            serverSocket =  new ServerSocket(9999);
+            sock = serverSocket.accept();
+        
+            oStream = new ObjectOutputStream(sock.getOutputStream());
+            iStream = new ObjectInputStream(sock.getInputStream());
+                    
         }
         }
     }

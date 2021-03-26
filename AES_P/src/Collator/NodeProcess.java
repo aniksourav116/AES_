@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class NodeProcess {
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException, InterruptedException, Exception{
         System.out.println("Process Started");
                        
         int choice = 9999; //scan.nextInt();        
@@ -25,8 +25,13 @@ public class NodeProcess {
         node.reciever.start();
         
         
-        //node.sender = new Sender(9998);
-        //node.sender.start();
+        node.sender = new Sender(9999);
+        node.sender.start();
+        node.sender.join();
+        node.sender = new Sender(9999);
+        node.sender.sendFinal(9999);
+        
+        
         
         
         
