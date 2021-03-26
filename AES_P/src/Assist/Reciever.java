@@ -23,7 +23,8 @@ import java.util.logging.Logger;
  */
 public class Reciever extends Thread{
     int portID;
-
+    int tracker;
+    long summation;
     public Reciever(int portID) {
         this.portID = portID;
     }
@@ -47,6 +48,10 @@ public class Reciever extends Thread{
             String returnMessage = "ACCEPTED";
             
             oStream.writeObject(returnMessage);
+            serverSocket.close();
+            socket.close();
+            oStream.close();
+            iStream.close();
             
             
             
@@ -83,15 +88,15 @@ public class Reciever extends Thread{
     @Override
     public void run()
     {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Assist.Reciever.run()");
-            
-        }
+        
         
         try {
-            System.out.println("Running Reciever");
-            recieve();
-            System.out.println("Assist.Reciever.run()");
+            while (true) {                
+                System.out.println("Running Reciever");
+                recieve();
+                System.out.println("Recieve Done");
+            }
+            
         } catch (IOException ex) {
             System.out.println(ex);
         }

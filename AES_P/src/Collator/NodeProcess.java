@@ -25,8 +25,8 @@ public class NodeProcess {
         node.reciever.start();
         
         
-        node.sender = new Sender(9998);
-        node.sender.start();
+        //node.sender = new Sender(9998);
+        //node.sender.start();
         
         
         

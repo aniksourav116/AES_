@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Node {
     public int status; //0 For Recieving 1 for sending.
     public MetaData metaData;
     public static int processCounter;
-    public HashMap<Integer,AddressPort> AllList;
+    public Vector<AddressPort> AllList;
     //
 
     public Node(int portID) {
@@ -43,7 +44,7 @@ public class Node {
         this.status = 0;
         this.metaData = new MetaData();
         this.processCounter = 0;
-        AllList = new HashMap<Integer,AddressPort>();
+        AllList = new Vector<AddressPort>();
         
         
         
@@ -62,10 +63,14 @@ public class Node {
             int prtID = Integer.parseInt(datas[1]);
             if(prtID!=this.portID){
                AddressPort adp = new AddressPort(Address, prtID);
-               AllList.put(++i, adp);
+               AllList.add(adp);
             }
             
-        }
+            
+        }      
+        
+        
+        
     }
     
          
