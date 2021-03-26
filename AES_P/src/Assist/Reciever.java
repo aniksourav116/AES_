@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Anik Sourav
  */
-public class Reciever implements Runnable{
+public class Reciever extends Thread{
     int portID;
 
     public Reciever(int portID) {
@@ -83,30 +83,16 @@ public class Reciever implements Runnable{
     @Override
     public void run()
     {
-        System.out.println("Started Recieving");
-        try {
-            //connect();
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Assist.Reciever.run()");
             
-            Socket clientSocket = new Socket("localhost", 9998);
-        
-        ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
-        
-        //Scanner in=new Scanner(System.in);
-        //String message=in.nextLine();
-        
-        oStream.writeObject("message");
-        
-        
-        try {
-            Object recieved = iStream.readObject();
-            System.out.println("From Server"+ (String) recieved );
-            
-        } catch (Exception e) {
-            System.out.println("Test.TestClient.main()");
         }
-        } catch (Exception ex) {
-            //System.out.println("Except");
+        
+        try {
+            System.out.println("Running Reciever");
+            recieve();
+            System.out.println("Assist.Reciever.run()");
+        } catch (IOException ex) {
             System.out.println(ex);
         }
     }

@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Anik Sourav
  */
-public class Sender implements Runnable{
+public class Sender extends Thread{
 
     public int portID;
 
@@ -59,31 +59,22 @@ public class Sender implements Runnable{
         
     @Override
     public void run() {
-        System.out.println("Sending");
-        try {
-            //connect();
-            ServerSocket serverSocket =  new ServerSocket(9999);
-        Socket sock = serverSocket.accept();
-        
-        ObjectOutputStream oStream = new ObjectOutputStream(sock.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(sock.getInputStream());
-        
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Assist.Sender.run()");
+            
+        }
         
         try {
-            Object recieved = iStream.readObject();
-            System.out.println("Recieved"+(String) recieved);
-            
-            oStream.writeObject("Sent From Server");
-            
-        } catch (Exception e) {
-            System.out.println("Test.TestServer.main()");
+            send(portID);
+        } catch (IOException ex) {
+            Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
         }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
+        
         
         
     }
+
+    
     
     
 }
