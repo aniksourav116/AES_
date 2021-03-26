@@ -44,6 +44,10 @@ public class Sender implements Runnable{
             System.out.println(e);
         }
         
+        socket.close();
+        oStream.close();
+        iStream.close();
+        
         return "DONE";
     }
     

@@ -57,6 +57,9 @@ public class Reciever implements Runnable{
             System.out.println(e);
         }
         
+        socket.close();
+        oStream.close();
+        iStream.close();
         
         
         

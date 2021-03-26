@@ -18,6 +18,7 @@ public class Node {
     public Reciever reciever;
     public int status; //0 For Recieving 1 for sending.
     public MetaData metaData;
+    public static int processCounter;
 
     public Node(int portID) {
         this.portID = portID;
@@ -25,6 +26,7 @@ public class Node {
         this.reciever = new Reciever(portID);
         this.status = 0;
         this.metaData = new MetaData();
+        this.processCounter = 0;
     }
          
     
