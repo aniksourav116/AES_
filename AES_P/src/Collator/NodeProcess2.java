@@ -18,9 +18,12 @@ public class NodeProcess2 {
     
     public static void main(String[] args) throws IOException{
         
-        Node n1 = new Node(1, 9992);
-        n1.getOtherNodeData();
+        System.out.println("Process Started");
+                       
+        Node node = new Node(9990);
         
+        node.recieve();
+        node.sendRound();
         
     }
     

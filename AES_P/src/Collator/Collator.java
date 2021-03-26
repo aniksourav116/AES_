@@ -39,16 +39,15 @@ public class Collator {
             Node node = new Node(portAlloctionStarter+i);
             node.reciever.start();
             nodes.add(node);
-            
+            //node.sendRound();
                        
         }
-        
-        for (int i = 0; i < 10; i++) {
+        /*
+        for (int i = 0; i < 1; i++) {
             for (int j = 0; j < nodes.size(); j++) {
                 try {
                     Node node = nodes.get(j);
-                    node.sender = new Sender(i);
-                    node.sender.SendRound();
+                    node.sendRound();
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -60,9 +59,9 @@ public class Collator {
                 
             }
             
-            
+          
         }
-        
+        */  
         
         
             

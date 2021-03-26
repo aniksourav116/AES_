@@ -19,17 +19,10 @@ public class NodeProcess {
     public static void main(String[] args) throws IOException, InterruptedException, Exception{
         System.out.println("Process Started");
                        
-        int choice = 9999; //scan.nextInt();        
-        Node node = new Node(choice);
+        Node node = new Node(9991);
         
-        node.reciever.start();
-        
-        
-        node.sender = new Sender(9999);
-        node.sender.start();
-        node.sender.join();
-        node.sender = new Sender(9999);
-        node.sender.sendFinal(9999);
+        node.recieve();
+        node.sendRound();
         
         
         

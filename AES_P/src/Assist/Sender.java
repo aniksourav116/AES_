@@ -78,7 +78,7 @@ public class Sender extends Thread {
     public void SendRound() throws IOException {
 
         Random random = new Random(100);
-
+        System.out.println(address);
         Socket socket = new Socket(address, portID);
 
         ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
@@ -132,21 +132,13 @@ public class Sender extends Thread {
 
         oStream.writeObject("STOP");
     }
-
-    public void connect() throws Exception {
-        Socket sock = new Socket("127.0.0.1", 9999);
-        System.out.println("Sender Connected");
-    }
+   
 
     @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Assist.Sender.run()");
-
-        }
-
+        
         try {
-            send(portID);
+            SendRound();
         } catch (IOException ex) {
             Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
         }
