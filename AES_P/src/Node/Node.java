@@ -13,19 +13,31 @@ import java.io.IOException;
  * @author Anik Sourav
  */
 public class Node {
-    int portID;
-    Sender sender;
-    Reciever reciever;
+    public int portID;
+    public Sender sender;
+    public Reciever reciever;
+    public int status; //0 For Recieving 1 for sending.
+    public MetaData metaData;
+
+    public Node(int portID) {
+        this.portID = portID;
+        //this.sender = new Sender(portID);
+        this.reciever = new Reciever(portID);
+        this.status = 0;
+        this.metaData = new MetaData();
+    }
+         
+    
     
     public void recieve() throws IOException
     {
-        reciever = new Reciever(9999);
+        //reciever = new Reciever(9999);
         reciever.recieve();
     }
     
-    public void send() throws IOException{
-        sender = new Sender(9999);
-        sender.send(9999);
+    public void send(int recieverID) throws IOException{
+        sender = new Sender(portID);
+        sender.send(recieverID);
         
     }
     

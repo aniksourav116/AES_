@@ -21,11 +21,11 @@ public class Collator {
         Scanner scan = new Scanner(System.in);
         
         int choice = scan.nextInt();
-        Node node = new Node();
+        Node node = new Node(9998);
         
         if(choice==1)
         {
-            node.send();
+            node.send(9998);
             
         }
         else
