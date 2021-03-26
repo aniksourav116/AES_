@@ -6,19 +6,25 @@
 package Node;
 
 import Assist.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  *
  * @author Anik Sourav
  */
 public class Node {
+    public int nodeID;
     public int portID;
     public Sender sender;
     public Reciever reciever;
     public int status; //0 For Recieving 1 for sending.
     public MetaData metaData;
     public static int processCounter;
+    public HashMap<Integer,AddressPort> AllList;
+    //
 
     public Node(int portID) {
         this.portID = portID;
@@ -28,6 +34,40 @@ public class Node {
         this.metaData = new MetaData();
         this.processCounter = 0;
     }
+    
+    public Node(int nodeID, int portID) {
+        this.nodeID = nodeID;
+        this.portID = portID;
+        //this.sender = new Sender(portID);
+        this.reciever = new Reciever(portID);
+        this.status = 0;
+        this.metaData = new MetaData();
+        this.processCounter = 0;
+        AllList = new HashMap<Integer,AddressPort>();
+        
+        
+        
+        
+    }
+    
+    public void getOtherNodeData() throws IOException
+    {
+        BufferedReader br = new BufferedReader( new FileReader("Nodes.txt"));
+        String line;
+        int i =0;
+        
+        while ( (line=br.readLine())!=null) {
+            String[] datas = line.split(" ");
+            String Address = datas[0];
+            int prtID = Integer.parseInt(datas[1]);
+            if(prtID!=this.portID){
+               AddressPort adp = new AddressPort(Address, prtID);
+               AllList.put(++i, adp);
+            }
+            
+        }
+    }
+    
          
     
     

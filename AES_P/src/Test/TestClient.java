@@ -17,15 +17,23 @@ import java.util.Scanner;
  */
 public class TestClient {
     public static void main(String[] args) throws IOException{
-        Socket clientSocket = new Socket("localhost", 9993);
+        Socket clientSocket = new Socket("localhost", 9999);
         
         ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
         ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
         
-        Scanner in=new Scanner(System.in);
-        String message=in.nextLine();
+        
+        
+        //Scanner in=new Scanner(System.in);
+        String message="Hi";
+        for (int i = 0; i < 10; i++) {
+            
         
         oStream.writeObject(message);
+        if(message=="stop")
+        {
+            return;
+        }
         
         
         try {
@@ -34,6 +42,11 @@ public class TestClient {
             
         } catch (Exception e) {
             System.out.println("Test.TestClient.main()");
+        }
+            if (i>8) {
+                message="stop";
+                
+            }
         }
         
         

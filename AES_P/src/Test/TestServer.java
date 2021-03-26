@@ -22,15 +22,23 @@ public class TestServer {
         ObjectOutputStream oStream = new ObjectOutputStream(sock.getOutputStream());
         ObjectInputStream iStream = new ObjectInputStream(sock.getInputStream());
         
+        while (true) {            
+            
+        
         
         try {
             Object recieved = iStream.readObject();
             System.out.println("Recieved"+(String) recieved);
             
+            if (recieved.equals("stop")) {
+                return;
+            }
+            
             oStream.writeObject("Sent From Server");
             
         } catch (Exception e) {
-            System.out.println("Test.TestServer.main()");
+            System.out.println(e);
+        }
         }
     }
 }
