@@ -5,11 +5,13 @@
  */
 package Collator;
 
+import Assist.Sender;
 import Node.Node;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.Vector;
 
 /**
  *
@@ -30,15 +32,37 @@ public class Collator {
         portAlloctionStarter = Integer.parseInt(br.readLine());
         
         
-        HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
+        //HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
+        Vector<Node> nodes = new Vector<Node>();
         
         for(int i=0;i<totalProcesses;i++){
             Node node = new Node(portAlloctionStarter+i);
             node.reciever.start();
-            nodes.put(i, node);
+            nodes.add(node);
             
                        
         }
+        
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < nodes.size(); j++) {
+                try {
+                    Node node = nodes.get(j);
+                    node.sender = new Sender(i);
+                    node.sender.SendRound();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                
+                
+                
+                
+                
+                
+            }
+            
+            
+        }
+        
         
         
             

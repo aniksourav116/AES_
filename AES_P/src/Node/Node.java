@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Vector;
 
 /**
@@ -36,7 +37,7 @@ public class Node {
         this.processCounter = 0;
     }
     
-    public Node(int nodeID, int portID) {
+    public Node(int nodeID, int portID) throws IOException {
         this.nodeID = nodeID;
         this.portID = portID;
         //this.sender = new Sender(portID);
@@ -45,7 +46,7 @@ public class Node {
         this.metaData = new MetaData();
         this.processCounter = 0;
         AllList = new Vector<AddressPort>();
-        
+        this.getOtherNodeData();
         
         
         
@@ -62,6 +63,7 @@ public class Node {
             String Address = datas[0];
             int prtID = Integer.parseInt(datas[1]);
             if(prtID!=this.portID){
+                //This is for running in same 
                AddressPort adp = new AddressPort(Address, prtID);
                AllList.add(adp);
             }
@@ -88,7 +90,19 @@ public class Node {
         
     }
     
-    
+    public void sendRound() throws IOException
+    {
+        Random random = new Random();
+        int choice = random.nextInt(AllList.size());
+        
+        AddressPort adp = AllList.get(choice);
+        
+        sender  = new Sender(adp.portID, adp.adress);
+        
+        sender.start();
+        
+        
+    }
     
             
     
