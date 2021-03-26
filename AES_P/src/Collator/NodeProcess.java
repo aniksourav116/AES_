@@ -17,14 +17,14 @@ import java.util.Scanner;
 public class NodeProcess {
     
     public static void main(String[] args) throws IOException{
-        System.out.println("Collator Started");
-        
-        //Scanner scan = new Scanner(System.in);
-        
-        int choice = 9999; //scan.nextInt();
+        System.out.println("Process Started");
+                       
+        int choice = 9999; //scan.nextInt();        
         Node node = new Node(choice);
         
         node.reciever.start();
+        
+        
         node.sender = new Sender(9998);
         node.sender.start();
         
