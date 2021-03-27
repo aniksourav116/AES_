@@ -39,6 +39,21 @@ public class Sender extends Thread {
         this.roundSize = 5;
     }
 
+    public synchronized void sendSpecific(AddressPort adp, String message) {
+        try {
+            Socket socket = new Socket(adp.adress, adp.portID);
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+
+            oStream.writeObject("STOP");
+            Object object = iStream.readObject();
+            socket.close();
+        } catch (Exception e) {
+            sendSpecific(adp, message);
+        }
+
+    }
+
     public Sender(int portID, String address) {
         this.portID = portID;
         this.address = address;
@@ -64,35 +79,30 @@ public class Sender extends Thread {
                     Socket socket = new Socket(Address, prtID);
                     ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-                
+
                     oStream.writeObject("STOP");
                     Object object = iStream.readObject();
                     socket.close();
                 } catch (Exception e) {
-                    
+
                     System.out.println("Not Connecting");
                     Thread.sleep(1000);
                     Socket socket = new Socket(Address, prtID);
                     ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-                
+
                     oStream.writeObject("STOP");
                     Object object = iStream.readObject();
                     socket.close();
-                    
-                    
+
                 }
-                
 
                 //System.out.println((String) object);
-
-                
-
             }
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("455");
-              
+
         }
 
     }

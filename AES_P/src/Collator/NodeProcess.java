@@ -17,12 +17,22 @@ import java.util.Scanner;
 public class NodeProcess {
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception{
-        System.out.println("Process Started");
-                       
-        Node node = new Node(9991);
+        int collatorPortID = 22220;
         
-        node.recieve();
-        node.sendRound();
+        System.out.println("Process Started");
+        
+        Scanner sc = new Scanner(System.in);
+        int portID = sc.nextInt();
+                       
+        Node node = new Node(portID);
+        
+        node.reciever.start();
+        node.senderC.start();
+        
+        
+                   
+        
+        
         
         
         

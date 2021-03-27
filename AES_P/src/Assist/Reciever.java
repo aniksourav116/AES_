@@ -100,6 +100,17 @@ public class Reciever extends Thread {
 
     }
 
+    
+    public synchronized void completionReciever(int prtID)
+    {
+        try {
+            ServerSocket serverSocket = new ServerSocket(prtID);
+        } catch (Exception e) {
+        }
+    }
+
+
+    
     @Override
     public void run() {
 

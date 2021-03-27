@@ -30,72 +30,29 @@ public class CollatorMachine {
         int totalProcesses;
         int portAlloctionStarter;
 
-        BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt")); 
+        BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt"));
         String line;
 
         line = br.readLine();
         totalProcesses = Integer.parseInt(line);
         portAlloctionStarter = Integer.parseInt(br.readLine());
-        
-        BufferedWriter bw = new BufferedWriter( new FileWriter("Nodes.txt"));
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
         for (int i = 0; i < totalProcesses; i++) {
             int k = portAlloctionStarter + i;
-            line = "localhost "+k+"\n";
+            line = "localhost " + k + "\n";
             bw.write(line);
         }
-        
-        
-        
-        
-        
-        
         bw.close();
+        //Vector<Node> nodes = new Vector<Node>();
+        Sender sender = new Sender(1);
+        
+        for (int i = 0; i < totalProcesses; i++) {
+            
+            
+        }
 
         
-                
-                
-                
-                Vector<Node> nodes = new Vector<Node>();
-                
-                for (int i = 0; i < totalProcesses; i++) {
-                Node node = new Node(i, portAlloctionStarter + i);
-                node.reciever.start();
-                node.senderC.start();
-                nodes.add(node);
-                //node.sendRound();
-                //
-                //node.senderC.start();
-                
-                }
-                
-                int totalS = 0;
-                int totalR = 0;
-                
-                for (int i = 0; i < totalProcesses; i++) {
-                Node node = nodes.get(i);
-                node.senderC.join();
-                Thread.sleep(5000);
-                
-                }
-                
-                Sender sender = new Sender(1, "");
-                
-                sender.sendFinal();
-                
-                for (int i = 0; i < totalProcesses; i++) {
-                Node node = nodes.get(i);
-                node.reciever.join();
-                
-                System.out.println("Node " + node.nodeID + "Sent " + node.senderC.tracker);
-                System.out.println("Node " + node.nodeID + "Recieved " + node.reciever.tracker);
-                totalS += node.senderC.tracker;
-                totalR += node.reciever.tracker;
-                }
-                
-                System.out.println("Total Sent: " + totalS);
-                System.out.println("Total Recieved: " + totalR);
-                System.out.println("All done");
-                
     }
 
 }
