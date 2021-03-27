@@ -57,9 +57,16 @@ public class SenderCont extends Thread {
             System.out.println(AllList.get(i).portID);
 
         }
+        
+        System.out.println("Total Messages Sent: ");
+        System.out.println(this.tracker);
     }
 
     private void sendRound(String adress, int portID) throws IOException {
+        
+        try {
+            
+        
         Random random = new Random(116);
         Socket socket = new Socket(adress, portID);
         ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
@@ -91,6 +98,12 @@ public class SenderCont extends Thread {
                 System.out.println(e);
                 return;
             }
+            
+            
+            } catch (Exception e) {
+                System.out.println("Could not connect");
+                return;
+        }
 
         }
 

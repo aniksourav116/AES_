@@ -38,12 +38,23 @@ public class Collator {
         for(int i=0;i<totalProcesses;i++){
             Node node = new Node(i,portAlloctionStarter+i);
             node.reciever.start();
+            node.senderC.start();
             nodes.add(node);
             //node.sendRound();
             //
             //node.senderC.start();
                        
         }
+        
+        for (int i = 0; i < totalProcesses; i++) {
+            Node node = nodes.get(i);
+            node.senderC.join();
+            System.out.println("Sent "+node.senderC.tracker);
+                       
+        }
+        System.out.println("All Sent");
+        
+        
         /*
         for (int i = 0; i < 100; i++) {
             for (int j = 0; j < nodes.size(); j++) {
