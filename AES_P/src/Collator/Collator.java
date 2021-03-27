@@ -55,11 +55,19 @@ public class Collator {
 
         }
         System.out.println("All Sent");
-
-        for (int i = 0; i < totalProcesses; i++) {
+        
+        
+            
+            
+            
+            Sender sender  = new Sender(1,"");
+            
+            sender.sendFinal();
+            
+            System.out.println("All done");
             
 
-        }
+        
 
     }
 

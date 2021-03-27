@@ -6,6 +6,8 @@
 package Assist;
 
 //This is server
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -29,7 +31,7 @@ public class Sender extends Thread {
     public int portID;
     public String address;
     public int roundSize;
-    
+
     public Vector<AddressPort> AllList;
 
     public Sender(int portID) {
@@ -43,117 +45,36 @@ public class Sender extends Thread {
         this.roundSize = 5; //ROundSIze
 
         this.tracker = 0;
-        this.summation = 0;                
+        this.summation = 0;
 
     }
 
-    public String send(int recieverPrtID) throws IOException {
-        Socket socket = new Socket("localhost", recieverPrtID);
+    public void sendFinal() throws Exception {
 
-        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+        BufferedReader br = new BufferedReader(new FileReader("Nodes.txt"));
+        String line;
+        int i = 0;
 
-        try {
-            String payload = "100";
+        while ((line = br.readLine()) != null) {
+            String[] datas = line.split(" ");
+            String Address = datas[0];
+            int prtID = Integer.parseInt(datas[1]);
 
-            for (int i = 0; i < roundSize; i++) {
-                oStream.writeObject(payload);
-                Object reObject = iStream.readObject();
-                System.out.println((String) reObject);
+            Socket socket = new Socket(Address,prtID);
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
 
-            }
+            oStream.writeObject("STOP");
+            socket.close();
 
-        } catch (Exception e) {
-            System.out.println(e);
         }
 
-        socket.close();
-        oStream.close();
-        iStream.close();
-
-        //socket = new Socket("localhost", recieverPrtID);
-        //oStream = new ObjectOutputStream(socket.getOutputStream());
-        //iStream = new ObjectInputStream(socket.getInputStream());
-        //oStream.writeObject("STOP");
-        return "DONE";
     }
-    
-    public void sendRounds() throws IOException
-    {
-        
-              
-        
-    }
-    
-    public void SendRound() throws IOException {
-
-        Random random = new Random(100);
-        System.out.println(address);
-        Socket socket = new Socket(address, portID);
-
-        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-
-        try {
-
-            for (int i = 0; i < roundSize; i++) {
-
-                Integer iRandom = random.nextInt();
-
-                //int ir = iRandom;
-                
-                
-                
-                String payload = iRandom.toString();
-
-                oStream.writeObject(payload);
-                Object reObject = iStream.readObject();
-                System.out.println((String) reObject);
-                
-                //System.out.println();
-                
-                this.tracker++;
-                this.summation+=iRandom;
-                
-                
-
-            }
-
-        } catch (Exception e) {
-            
-            System.out.println(e);
-            return;
-        }
-
-        socket.close();
-        //oStream.close();
-        //iStream.close();
-
-        //socket = new Socket("localhost", recieverPrtID);
-        //oStream = new ObjectOutputStream(socket.getOutputStream());
-        //iStream = new ObjectInputStream(socket.getInputStream());
-        //oStream.writeObject("STOP");
-        return;
-
-    }
-
-    public void sendFinal(int recieverPortID) throws Exception {
-        Socket socket = new Socket("localhost", recieverPortID);
-        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-
-        oStream.writeObject("STOP");
-    }
-   
 
     @Override
     public void run() {
-        
-        try {
-            SendRound();
-        } catch (IOException ex) {
-            Logger.getLogger(Sender.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        return;
 
     }
 

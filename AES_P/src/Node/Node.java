@@ -20,6 +20,7 @@ import java.util.Vector;
 public class Node {
     public int nodeID;
     public int portID;
+    public String address;
     public Sender sender;
     public Reciever reciever;
     public int status; //0 For Recieving 1 for sending.
@@ -71,6 +72,10 @@ public class Node {
                AddressPort adp = new AddressPort(Address, prtID);
                AllList.add(adp);
             }
+            else
+            {
+                this.address = Address;
+            }
             
             
         }      
@@ -88,11 +93,7 @@ public class Node {
         reciever.recieve();
     }
     
-    public void send(int recieverID) throws IOException{
-        sender = new Sender(portID);
-        sender.send(recieverID);
-        
-    }
+    
     
     public void sendRound() throws IOException
     {
