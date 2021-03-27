@@ -30,9 +30,9 @@ public class SenderCont extends Thread {
         this.tracker = 0;
         this.summation = 0;
         this.roundSize = 5;
-        this.AllList = AllList;
-        this.totalMessages = 50;
+        this.AllList = AllList;        
         this.roundSize = 5;
+        this.totalMessages = 1000;
     }
 
     @Override

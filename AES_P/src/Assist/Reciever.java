@@ -53,9 +53,9 @@ public class Reciever extends Thread {
                     payload = (String) message;
 
                     String returnMessage = "ACCEPTED";
-                    System.out.println(tracker);
+                    
                     this.tracker++;
-                    System.out.println(tracker);
+                    
                     oStream.writeObject(returnMessage);
 
                     if (payload.equals("STOP")) {
