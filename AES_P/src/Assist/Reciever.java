@@ -52,11 +52,13 @@ public class Reciever extends Thread {
                         Object message = iStream.readObject();
                         payload = (String) message;
 
-                        String returnMessage = "ACCEPTED";
-                        oStream.writeObject(returnMessage);
+                        
 
                         if (payload.equals("STOP")) {
                             serverSocket.close();
+                            
+                            String returnMessage = "ACCEPTED";
+                            oStream.writeObject(returnMessage);
                             return " ";
                             //break;
                         } else {
@@ -65,6 +67,8 @@ public class Reciever extends Thread {
                             this.tracker++;
 
                             this.summation += pLoad;
+                            String returnMessage = "ACCEPTED";
+                            oStream.writeObject(returnMessage);
 
                         }
                     }

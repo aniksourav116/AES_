@@ -23,30 +23,39 @@ public class Node {
     public String address;
     public Sender sender;
     public Reciever reciever;
-    public int status; //0 For Recieving 1 for sending.
+    public static int processCount = 0; 
     public MetaData metaData;
     public static int processCounter;
     public Vector<AddressPort> AllList;
     public SenderCont senderC;
     //
 
-    public Node(int portID) {
-        this.portID = portID;
-        //this.sender = new Sender(portID);
-        this.reciever = new Reciever(portID);
+    public Node(int portID) throws IOException {
         
-        this.status = 0;
+        this.nodeID = processCount++;
+        
+        this.portID = portID;
+        
+        this.reciever = new Reciever(portID);
         this.metaData = new MetaData();
         this.processCounter = 0;
+        this.portID = portID;        
+        this.reciever = new Reciever(portID);        
+        this.metaData = new MetaData();
+        this.processCounter = 0;
+        AllList = new Vector<AddressPort>();
+        this.getOtherNodeData();
+        this.senderC = new SenderCont(AllList);
+        
     }
     
     public Node(int nodeID, int portID) throws IOException {
         this.nodeID = nodeID;
-        System.out.println("Node.Node.<init>()" +portID);
+        //System.out.println("Node.Node.<init>()" +portID);
         this.portID = portID;
         //this.sender = new Sender(portID);
         this.reciever = new Reciever(portID);
-        this.status = 0;
+        //this.status = 0;
         this.metaData = new MetaData();
         this.processCounter = 0;
         AllList = new Vector<AddressPort>();

@@ -73,7 +73,7 @@ public class Collator {
                 for (int i = 0; i < totalProcesses; i++) {
                 Node node = nodes.get(i);
                 node.senderC.join();
-                Thread.sleep(5000);
+                //Thread.sleep(5000);
                 
                 }
                 

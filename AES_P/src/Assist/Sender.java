@@ -60,17 +60,33 @@ public class Sender extends Thread {
                 String[] datas = line.split(" ");
                 String Address = datas[0];
                 int prtID = Integer.parseInt(datas[1]);
-
-                Socket socket = new Socket(Address, prtID);
-                ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+                try {
+                    Socket socket = new Socket(Address, prtID);
+                    ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+                    ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
                 
-                oStream.writeObject("STOP");
-                Object object = iStream.readObject();
+                    oStream.writeObject("STOP");
+                    Object object = iStream.readObject();
+                    socket.close();
+                } catch (Exception e) {
+                    
+                    System.out.println("Not Connecting");
+                    Thread.sleep(1000);
+                    Socket socket = new Socket(Address, prtID);
+                    ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+                    ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+                
+                    oStream.writeObject("STOP");
+                    Object object = iStream.readObject();
+                    socket.close();
+                    
+                    
+                }
+                
 
-                System.out.println((String) object);
+                //System.out.println((String) object);
 
-                socket.close();
+                
 
             }
         } catch (Exception e) {

@@ -64,7 +64,7 @@ public class SenderCont extends Thread {
         try {
             
         
-        Random random = new Random(116);
+        Random random = new Random(117);
         Socket socket = new Socket(adress, portID);
         ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
