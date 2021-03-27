@@ -66,6 +66,9 @@ public class Collator {
                 
                 int totalS = 0;
                 int totalR = 0;
+                long sumS=0;
+                long sumR=0;
+                
                 
                 for (int i = 0; i < totalProcesses; i++) {
                 Node node = nodes.get(i);
@@ -86,10 +89,17 @@ public class Collator {
                 System.out.println("Node " + node.nodeID + "Recieved " + node.reciever.tracker);
                 totalS += node.senderC.tracker;
                 totalR += node.reciever.tracker;
+                sumS+=node.senderC.summation;
+                sumR+=node.reciever.summation;
+                
                 }
                 
                 System.out.println("Total Sent: " + totalS);
                 System.out.println("Total Recieved: " + totalR);
+                
+                System.out.println("Total Sent Sum: " + sumS);
+                System.out.println("Total Recieved Sum: " + sumR);
+                
                 System.out.println("All done");
                 
     }
