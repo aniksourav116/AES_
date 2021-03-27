@@ -34,7 +34,7 @@ public class Reciever extends Thread {
     }
     
 
-    public String recieve() throws IOException {
+    public synchronized String  recieve() throws IOException {
         String payload = "";
 
         ServerSocket serverSocket = new ServerSocket(portID);

@@ -36,14 +36,16 @@ public class Collator {
         Vector<Node> nodes = new Vector<Node>();
         
         for(int i=0;i<totalProcesses;i++){
-            Node node = new Node(portAlloctionStarter+i);
+            Node node = new Node(i,portAlloctionStarter+i);
             node.reciever.start();
             nodes.add(node);
             //node.sendRound();
+            //
+            //node.senderC.start();
                        
         }
         /*
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 100; i++) {
             for (int j = 0; j < nodes.size(); j++) {
                 try {
                     Node node = nodes.get(j);
@@ -61,7 +63,7 @@ public class Collator {
             
           
         }
-        */  
+        */
         
         
             

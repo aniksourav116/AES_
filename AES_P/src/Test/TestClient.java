@@ -31,6 +31,7 @@ public class TestClient {
             try {
                 oStream.writeObject(message);
             } catch (Exception e) {
+                
                 Thread.sleep(1000);
                 oStream.writeObject(message);
             }

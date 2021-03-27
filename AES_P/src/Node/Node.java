@@ -26,12 +26,14 @@ public class Node {
     public MetaData metaData;
     public static int processCounter;
     public Vector<AddressPort> AllList;
+    public SenderCont senderC;
     //
 
     public Node(int portID) {
         this.portID = portID;
         //this.sender = new Sender(portID);
         this.reciever = new Reciever(portID);
+        
         this.status = 0;
         this.metaData = new MetaData();
         this.processCounter = 0;
@@ -47,6 +49,8 @@ public class Node {
         this.processCounter = 0;
         AllList = new Vector<AddressPort>();
         this.getOtherNodeData();
+        this.senderC = new SenderCont(AllList);
+        
         
         
         

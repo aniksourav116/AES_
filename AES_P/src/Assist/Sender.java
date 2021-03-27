@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,8 @@ public class Sender extends Thread {
     public int portID;
     public String address;
     public int roundSize;
+    
+    public Vector<AddressPort> AllList;
 
     public Sender(int portID) {
         this.portID = portID;
@@ -39,8 +42,8 @@ public class Sender extends Thread {
         this.address = address;
         this.roundSize = 5; //ROundSIze
 
-        tracker = 0;
-        summation = 0;
+        this.tracker = 0;
+        this.summation = 0;                
 
     }
 
@@ -74,7 +77,14 @@ public class Sender extends Thread {
         //oStream.writeObject("STOP");
         return "DONE";
     }
-
+    
+    public void sendRounds() throws IOException
+    {
+        
+              
+        
+    }
+    
     public void SendRound() throws IOException {
 
         Random random = new Random(100);
@@ -110,12 +120,14 @@ public class Sender extends Thread {
             }
 
         } catch (Exception e) {
+            
             System.out.println(e);
+            return;
         }
 
         socket.close();
-        oStream.close();
-        iStream.close();
+        //oStream.close();
+        //iStream.close();
 
         //socket = new Socket("localhost", recieverPrtID);
         //oStream = new ObjectOutputStream(socket.getOutputStream());
