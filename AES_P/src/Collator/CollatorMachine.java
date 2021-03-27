@@ -21,7 +21,7 @@ import java.util.Vector;
  *
  * @author Anik Sourav
  */
-public class Collator {
+public class CollatorMachine {
 
     public int processCount = 0;
 
