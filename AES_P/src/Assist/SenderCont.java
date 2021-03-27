@@ -39,11 +39,12 @@ public class SenderCont extends Thread {
     public void run() {
         System.out.println("Assist.SenderCont.run()");
 
-        Random random = new Random(116);
+        Random random = new Random();
 
-        AddressPort adp = AllList.get(random.nextInt(AllList.size()));
+        
 
         while (this.tracker < totalMessages) {
+            AddressPort adp = AllList.get(random.nextInt(AllList.size()));
             try {
                 sendRound(adp.adress, adp.portID);
             } catch (IOException ex) {
