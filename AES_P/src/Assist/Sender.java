@@ -54,7 +54,9 @@ public class Sender extends Thread {
         BufferedReader br = new BufferedReader(new FileReader("Nodes.txt"));
         String line;
         int i = 0;
-
+        try {
+            
+        
         while ((line = br.readLine()) != null) {
             String[] datas = line.split(" ");
             String Address = datas[0];
@@ -67,6 +69,9 @@ public class Sender extends Thread {
             oStream.writeObject("STOP");
             socket.close();
 
+        }
+        } catch (Exception e) {
+            System.out.println(e);
         }
 
     }
