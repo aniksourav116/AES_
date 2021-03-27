@@ -30,7 +30,7 @@ public class CollatorMachine {
         int totalProcesses;
         int portAlloctionStarter;
 
-        BufferedReader br = new BufferedReader(new FileReader("Collator.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt")); 
         String line;
 
         line = br.readLine();
