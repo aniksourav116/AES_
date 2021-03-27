@@ -105,7 +105,13 @@ public class Reciever extends Thread {
     {
         try {
             ServerSocket serverSocket = new ServerSocket(prtID);
+            Socket socket = serverSocket.accept();
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            Object obj = iStream.readObject();
+            
         } catch (Exception e) {
+            completionReciever(prtID);
+            return;
         }
     }
 

@@ -5,7 +5,8 @@
  */
 package Collator;
 
-import Assist.Sender;
+
+import Assist.*;
 import Node.Node;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -16,6 +17,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Vector;
+import javax.sound.midi.Receiver;
 
 /**
  *
@@ -29,6 +31,7 @@ public class CollatorMachine {
 
         int totalProcesses;
         int portAlloctionStarter;
+        int collatorPort = 22222;
 
         BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt"));
         String line;
@@ -45,8 +48,10 @@ public class CollatorMachine {
         }
         bw.close();
         //Vector<Node> nodes = new Vector<Node>();
-        Sender sender = new Sender(1);
+        //Sender sender = new Sender(1);
+        Reciever receiver = new Reciever(collatorPort);
         
+        receiver.completionReciever(collatorPort);
         for (int i = 0; i < totalProcesses; i++) {
             
             
