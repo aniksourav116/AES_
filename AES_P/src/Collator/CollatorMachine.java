@@ -19,7 +19,7 @@ import java.util.Vector;
 
 /**
  *
- * @author Anik Sourav
+ * @author Anik Sourava
  */
 public class CollatorMachine {
 
@@ -27,11 +27,11 @@ public class CollatorMachine {
 
     public static void main(String[] args) throws Exception {
 
-        int totalProcesses = 0;
+        int totalProcesses;
         int portAlloctionStarter;
 
         BufferedReader br = new BufferedReader(new FileReader("Collator.txt"));
-        String line = null;
+        String line;
 
         line = br.readLine();
         totalProcesses = Integer.parseInt(line);
