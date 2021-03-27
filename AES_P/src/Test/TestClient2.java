@@ -25,7 +25,11 @@ public class TestClient2 {
 
                 ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
                 ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
-
+                
+                
+                
+                //oStrea.writeObject("STO");
+                
                 //Scanner in=new Scanner(System.in);
                 String message = "100";
                 for (int i = 0; i < 5; i++) {
@@ -51,6 +55,22 @@ public class TestClient2 {
                         System.out.println("Test.TestClient.main()");
                     }
                 }
+                
+                try {
+                    System.out.println("Test.TestClient2.main()1");
+                    Socket clentSocket = new Socket("localhost", 9990 + j);
+                    System.out.println("Test.TestClient2.main()2");
+                    ObjectOutputStream oStrea = new ObjectOutputStream(clientSocket.getOutputStream());
+                    System.out.println("Test.TestClient2.main()3");
+                    //ObjectInputStream iStrea = new ObjectInputStream(clientSocket.getInputStream());
+                    oStrea.writeObject("STOP");
+                    System.out.println("Test.TestClient2.main()4");
+                    
+                } catch (Exception e) {
+                    System.out.println("Port in use");
+                }
+                
+                
                 clientSocket.close();
 
             }

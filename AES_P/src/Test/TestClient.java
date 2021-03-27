@@ -17,38 +17,52 @@ import java.util.Scanner;
 public class TestClient {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        Socket clientSocket = new Socket("localhost", 9991);
+        try {
 
-        ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
+            Socket clientSocket = new Socket("localhost", 9991);
 
-        //Scanner in=new Scanner(System.in);
-        String message = "100";
-        for (int i = 0; i < 5; i++) {
-            Integer a = i;
-            message = a.toString();
-            //message = "STOP";
-            try {
-                oStream.writeObject(message);
-            } catch (Exception e) {
-                
-                Thread.sleep(1000);
-                oStream.writeObject(message);
+            ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
+
+            //Scanner in=new Scanner(System.in);
+            String message = "100";
+            for (int i = 0; i < 5; i++) {
+                Integer a = i;
+                message = a.toString();
+                //message = "STOP";
+                try {
+                    oStream.writeObject(message);
+                } catch (Exception e) {
+
+                    Thread.sleep(1000);
+                    oStream.writeObject(message);
+                }
+
+                //Scanner in = new Scanner(System.in);
+                //String tt = in.nextLine();
+                Thread.sleep(2000);
+                try {
+                    Object recieved = iStream.readObject();
+                    System.out.println("From Server" + (String) recieved);
+
+                } catch (Exception e) {
+                    System.out.println("Test.TestClient.main()");
+                }
             }
-            
-            //Scanner in = new Scanner(System.in);
-            //String tt = in.nextLine();
+            //oStream.writeObject("STOP");
+            clientSocket.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
             Thread.sleep(1000);
-            try {
-                Object recieved = iStream.readObject();
-                System.out.println("From Server" + (String) recieved);
+            Socket clientSocket = new Socket("localhost", 9991);
 
-            } catch (Exception e) {
-                System.out.println("Test.TestClient.main()");
-            }
+            ObjectOutputStream oStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(clientSocket.getInputStream());
+            oStream.writeObject("MSTOP");
+            
+            return;
         }
-        clientSocket.close();
-
     }
 
 }
