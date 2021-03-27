@@ -67,6 +67,10 @@ public class Sender extends Thread {
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
 
             oStream.writeObject("STOP");
+            Object object =  iStream.readObject();
+            
+            System.out.println((String)object);
+            
             socket.close();
 
         }

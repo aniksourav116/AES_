@@ -32,7 +32,7 @@ public class SenderCont extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;        
         this.roundSize = 5;
-        this.totalMessages = 2000*5;
+        this.totalMessages = 10*5;
     }
 
     @Override

@@ -32,70 +32,69 @@ public class Reciever extends Thread {
         this.summation = 0;
         this.roundSize = 5;
     }
-    
 
-    public synchronized String  recieve() throws IOException {
-        String payload = "";
+    public synchronized String recieve() throws IOException {
+        try {
 
-        ServerSocket serverSocket = new ServerSocket(portID);
-        Socket socket = serverSocket.accept();
-
-        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-        while (true) {
-            try {
-
-                for (int i = 0; i < roundSize; i++) {
-                    
-                    Object message = iStream.readObject();
-
-                    //System.out.println("Message Recieved " + (String) message);
-                    payload = (String) message;
-                    //System.out.println("updating");
-                    //tracker++;
-                    String returnMessage = "ACCEPTED";
-                    
-                    
-                    
-                    oStream.writeObject(returnMessage);
-
-                    if (payload.equals("STOP")) {
-                        serverSocket.close();
-                        return " ";
-                        //break;
-                    } else {
-                        
-                        int pLoad = Integer.parseInt(payload);
-                        this.tracker++;
-                        
-                        this.summation += pLoad;
-
-                    }
-                }
-                //this.tracker+=5;
-                serverSocket.close();
-
-                serverSocket = new ServerSocket(portID);
-                socket = serverSocket.accept();
-
-                oStream = new ObjectOutputStream(socket.getOutputStream());
-                iStream = new ObjectInputStream(socket.getInputStream());
-
-            } catch (Exception e) {
-                System.out.println("Problem Recieving");
-                System.out.println(e);
-            }
+            String payload = "";
             
-            if (payload.equals("STOP")) {
-                break;
+            System.out.println("Recieving"+portID);
+            ServerSocket serverSocket = new ServerSocket(portID);
+            Socket socket = serverSocket.accept();
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+
+            while (true) {
+                try {
+
+                    for (int i = 0; i < roundSize; i++) {
+
+                        Object message = iStream.readObject();
+                        payload = (String) message;
+
+                        String returnMessage = "ACCEPTED";
+                        oStream.writeObject(returnMessage);
+
+                        if (payload.equals("STOP")) {
+                            serverSocket.close();
+                            return " ";
+                            //break;
+                        } else {
+
+                            int pLoad = Integer.parseInt(payload);
+                            this.tracker++;
+
+                            this.summation += pLoad;
+
+                        }
+                    }
+                    //this.tracker+=5;
+                    serverSocket.close();
+
+                    serverSocket = new ServerSocket(portID);
+                    socket = serverSocket.accept();
+                    oStream = new ObjectOutputStream(socket.getOutputStream());
+                    iStream = new ObjectInputStream(socket.getInputStream());
+
+                } catch (Exception e) {
+                    System.out.println("Problem Recieving");
+                    System.out.println(e);
+                }
+
+                if (payload.equals("STOP")) {
+                    break;
+                }
             }
+            System.out.println("Broken");
+
+        } catch (Exception e) {
+            System.out.println("Reciever Failed");
+            return "FAILED";
         }
-        System.out.println("Broken");
+
         return "DONE";
 
     }
-
-  
 
     @Override
     public void run() {

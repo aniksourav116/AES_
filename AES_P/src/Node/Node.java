@@ -42,6 +42,7 @@ public class Node {
     
     public Node(int nodeID, int portID) throws IOException {
         this.nodeID = nodeID;
+        System.out.println("Node.Node.<init>()" +portID);
         this.portID = portID;
         //this.sender = new Sender(portID);
         this.reciever = new Reciever(portID);
