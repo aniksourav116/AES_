@@ -46,28 +46,33 @@ public class Reciever extends Thread {
             try {
 
                 for (int i = 0; i < roundSize; i++) {
-
+                    
                     Object message = iStream.readObject();
 
-                    System.out.println("Message Recieved " + (String) message);
+                    //System.out.println("Message Recieved " + (String) message);
                     payload = (String) message;
-
+                    //System.out.println("updating");
+                    //tracker++;
                     String returnMessage = "ACCEPTED";
                     
-                    this.tracker++;
+                    
                     
                     oStream.writeObject(returnMessage);
 
                     if (payload.equals("STOP")) {
+                        serverSocket.close();
                         return " ";
                         //break;
                     } else {
                         
                         int pLoad = Integer.parseInt(payload);
+                        this.tracker++;
+                        
                         this.summation += pLoad;
 
                     }
                 }
+                //this.tracker+=5;
                 serverSocket.close();
 
                 serverSocket = new ServerSocket(portID);
@@ -77,7 +82,7 @@ public class Reciever extends Thread {
                 iStream = new ObjectInputStream(socket.getInputStream());
 
             } catch (Exception e) {
-                System.out.println("Assist.Reciever.Recieve()");
+                System.out.println("Problem Recieving");
                 System.out.println(e);
             }
             
@@ -90,21 +95,16 @@ public class Reciever extends Thread {
 
     }
 
-    public void connect() throws Exception {
-        ServerSocket servsocket = new ServerSocket(22222);
-        Socket sock = servsocket.accept();
-        System.out.println("Reciever Connected");
-        //servsocket.close();
-    }
+  
 
     @Override
     public void run() {
 
         try {
             while (true) {
-                System.out.println("Running Reciever");
+                //System.out.println("Running Reciever");
                 recieve();
-                System.out.println("Recieve Done");
+                //System.out.println("Recieve Done");
                 break;
             }
 

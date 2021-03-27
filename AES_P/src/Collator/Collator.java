@@ -32,7 +32,7 @@ public class Collator {
         line = br.readLine();
         totalProcesses = Integer.parseInt(line);
         portAlloctionStarter = Integer.parseInt(br.readLine());
-        
+
         //HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
         Vector<Node> nodes = new Vector<Node>();
 
@@ -47,27 +47,35 @@ public class Collator {
 
         }
 
+        int totalS = 0;
+        int totalR = 0;
+
         for (int i = 0; i < totalProcesses; i++) {
             Node node = nodes.get(i);
             node.senderC.join();
-            System.out.println("Node " + node.nodeID + "Sent " + node.senderC.tracker);
-            System.out.println("Node " + node.nodeID + "Recieved " + node.reciever.tracker);
+            
 
         }
-        System.out.println("All Sent");
         
+
+        Sender sender = new Sender(1, "");
+
+        sender.sendFinal();
         
+        for (int i = 0; i < totalProcesses; i++) {
+            Node node = nodes.get(i);
+            node.reciever.join();
             
-            
-            
-            Sender sender  = new Sender(1,"");
-            
-            sender.sendFinal();
-            
-            System.out.println("All done");
-            
+            System.out.println("Node " + node.nodeID + "Sent " + node.senderC.tracker);
+            System.out.println("Node " + node.nodeID + "Recieved " + node.reciever.tracker);
+            totalS += node.senderC.tracker;
+            totalR += node.reciever.tracker;
+        }
 
         
+        System.out.println("Total Sent: " + totalS);
+        System.out.println("Total Recieved: " + totalR);
+        System.out.println("All done");
 
     }
 

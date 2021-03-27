@@ -32,11 +32,11 @@ public class SenderCont extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;        
         this.roundSize = 5;
-        this.totalMessages = 1000;
+        this.totalMessages = 5000*5;
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         System.out.println("Assist.SenderCont.run()");
 
         Random random = new Random();
@@ -54,16 +54,12 @@ public class SenderCont extends Thread {
 
         }
 
-        for (int i = 0; i < AllList.size(); i++) {
-            System.out.println(AllList.get(i).portID);
-
-        }
+                
+        System.out.println("Total Messages Sent: "+this.tracker);
         
-        System.out.println("Total Messages Sent: ");
-        System.out.println(this.tracker);
     }
 
-    private void sendRound(String adress, int portID) throws IOException {
+    private synchronized void sendRound(String adress, int portID) throws IOException {
         
         try {
             
@@ -85,13 +81,22 @@ public class SenderCont extends Thread {
 
                     oStream.writeObject(payload);
                     Object reObject = iStream.readObject();
-                    System.out.println((String) reObject);
+                    //System.out.println((String) reObject);
+                    String reString = (String) reObject;
+                    
+                    if (reString.equals("ACCEPTED")) {
+                        this.tracker++;
+                    }
+                    
+                    
+                                
 
                     //System.out.println();
-                    this.tracker++;
+                    
                     this.summation += iRandom;
 
                 }
+                //this.tracker+=5;
                 socket.close();
 
             } catch (Exception e) {
@@ -102,7 +107,7 @@ public class SenderCont extends Thread {
             
             
             } catch (Exception e) {
-                System.out.println("Could not connect");
+                //System.out.println("Could not connect");
                 return;
         }
 
