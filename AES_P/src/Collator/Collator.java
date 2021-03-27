@@ -18,70 +18,49 @@ import java.util.Vector;
  * @author Anik Sourav
  */
 public class Collator {
-    public int processCount=0;
+
+    public int processCount = 0;
+
     public static void main(String[] args) throws Exception {
-        
+
         int totalProcesses = 0;
         int portAlloctionStarter = -1;
-        
+
         BufferedReader br = new BufferedReader(new FileReader("Collator.txt"));
         String line = null;
-        
-        line=br.readLine();
+
+        line = br.readLine();
         totalProcesses = Integer.parseInt(line);
         portAlloctionStarter = Integer.parseInt(br.readLine());
         
-        
         //HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
         Vector<Node> nodes = new Vector<Node>();
-        
-        for(int i=0;i<totalProcesses;i++){
-            Node node = new Node(i,portAlloctionStarter+i);
+
+        for (int i = 0; i < totalProcesses; i++) {
+            Node node = new Node(i, portAlloctionStarter + i);
             node.reciever.start();
             node.senderC.start();
             nodes.add(node);
             //node.sendRound();
             //
             //node.senderC.start();
-                       
+
         }
-        
+
         for (int i = 0; i < totalProcesses; i++) {
             Node node = nodes.get(i);
             node.senderC.join();
-            System.out.println("Sent "+node.senderC.tracker);
-                       
+            System.out.println("Node " + node.nodeID + "Sent " + node.senderC.tracker);
+            System.out.println("Node " + node.nodeID + "Recieved " + node.reciever.tracker);
+
         }
         System.out.println("All Sent");
-        
-        
-        /*
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < nodes.size(); j++) {
-                try {
-                    Node node = nodes.get(j);
-                    node.sendRound();
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                
-                
-                
-                
-                
-                
-            }
+
+        for (int i = 0; i < totalProcesses; i++) {
             
-          
+
         }
-        */
-        
-        
-            
-        
-       
-        
-        
+
     }
-    
+
 }
