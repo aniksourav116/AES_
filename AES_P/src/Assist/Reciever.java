@@ -96,7 +96,7 @@ public class Reciever extends Thread {
         System.out.println("Reciever Connected");
         //servsocket.close();
     }
-
+    //
     @Override
     public void run() {
 
