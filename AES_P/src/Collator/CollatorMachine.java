@@ -71,22 +71,19 @@ public class CollatorMachine {
             }
             bw.close();
         
-        //Vector<Node> nodes = new Vector<Node>();
-        //Sender sender = new Sender(1);
-        //Reciever receiver = new Reciever(collatorPort);
-
-        //receiver.completionReciever(collatorPort);
+        
         for (int i = 0; i < totalProcesses; i++) {
-            //Sting receiver.singleRec();
+        
             Reciever reciever = new Reciever(collatorPort);
             String sent = reciever.initializeNode(totalProcesses,portAlloctionStarter+i);
-            //System.out.println(sent);
+        
             
 
         }
+        System.out.println("Initialized");
         
         for (int i = 0; i < totalProcesses; i++) {
-            Reciever reciever = new Reciever(collatorPort);
+            Reciever reciever = new Reciever(collatorPort+1);
             reciever.singleRec();
             System.out.println("Collator.CollatorMachine.main()");
         }
@@ -104,7 +101,7 @@ public class CollatorMachine {
         //Reciever reciever = new Reciever(collatorPort);
         
         //collatorPort = 33333;
-        Reciever reciever = new Reciever(collatorPort);
+        Reciever reciever = new Reciever(collatorPort+2);
         
         
         /*for (int i = 0; i < totalProcesses; i++) {
@@ -125,20 +122,20 @@ public class CollatorMachine {
         System.out.println("Sent----Recieved-----SentSummation-----RecievedSummation");
         String metadatas[] = a.split("\n");
         for (int i = 0; i < totalProcesses; i++) {
-            System.out.print("Node "+i);
+            System.out.print("\nNode "+i);
             String values[]=metadatas[i].split(" ");
             int sentT = Integer.parseInt(values[0]);
             System.out.print("  :");
-            System.out.println(sentT);
+            System.out.print(sentT);
             int receivedT = Integer.parseInt(values[1]);
-            System.out.print("  ");
-            System.out.println(receivedT);
+            System.out.print("  :");
+            System.out.print(receivedT);
             long sentSum = Long.parseLong(values[2]);
             System.out.print("  :");
-            System.out.println(sentSum);
+            System.out.print(sentSum);
             long receivedsum = Long.parseLong(values[3]);
-            System.out.print("  ");
-            System.out.println(receivedsum);
+            System.out.print("  :");
+            System.out.print(receivedsum);
             
             mdt.sendTracker+=sentT;
             mdt.recieveTracker+=receivedT;
@@ -147,7 +144,7 @@ public class CollatorMachine {
             
         }
         
-        System.out.println("Overall");
+        System.out.println("\nOverall");
         
         mdt.printMetadata();
         

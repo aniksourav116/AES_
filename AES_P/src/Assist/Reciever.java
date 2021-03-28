@@ -170,7 +170,8 @@ public class Reciever extends Thread {
 
             System.out.println(recieved);
             serverSocket.close();
-
+            
+            
             return recieved;
 
         } catch (Exception e) {

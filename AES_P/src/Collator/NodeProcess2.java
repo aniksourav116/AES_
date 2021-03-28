@@ -38,13 +38,13 @@ public class NodeProcess2 {
         
         newNode.senderC.join();
         
-        senderS.sendSingleString(Integer.toString(idp.portID), new AddressPort("localhost", collatorPortID));
+        senderS.sendSingleString(Integer.toString(idp.portID), new AddressPort("localhost", collatorPortID+1));
         newNode.reciever.join();
         System.out.println("Process Complete");
         
         newNode.prepareMetaData();
         //Thread.sleep(1000);
-        newNode.senderC.sendSingleString(newNode.metaData.metaDataToString(), new  AddressPort("localhost", collatorPortID));
+        newNode.senderC.sendSingleString(newNode.metaData.metaDataToString(), new  AddressPort("localhost", collatorPortID+2));
         //Thread.sleep(1000);
         
         
