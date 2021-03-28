@@ -113,6 +113,13 @@ public class Node {
         
     }
     
+    public void prepareMetaData(){
+        this.metaData.recieveSummation=this.reciever.summation;
+        this.metaData.recieveTracker=this.reciever.tracker;
+        this.metaData.sendSummation = this.senderC.summation;
+        this.metaData.sendTracker = this.senderC.tracker;
+    }
+    
             
     
 }

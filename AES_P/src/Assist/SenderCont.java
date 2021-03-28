@@ -5,6 +5,7 @@
  */
 package Assist;
 
+import Node.MetaData;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -30,9 +31,9 @@ public class SenderCont extends Thread {
         this.tracker = 0;
         this.summation = 0;
         this.roundSize = 5;
-        this.AllList = AllList;        
+        this.AllList = AllList;
         this.roundSize = 5;
-        this.totalMessages = 5000*5;
+        this.totalMessages = 5000 * 5;
     }
 
     @Override
@@ -40,8 +41,6 @@ public class SenderCont extends Thread {
         System.out.println("Assist.SenderCont.run()");
 
         Random random = new Random();
-
-        
 
         while (this.tracker < totalMessages) {
             AddressPort adp = AllList.get(random.nextInt(AllList.size()));
@@ -54,22 +53,19 @@ public class SenderCont extends Thread {
 
         }
 
-                
-        System.out.println("Total Messages Sent: "+this.tracker);
-        
+        System.out.println("Total Messages Sent: " + this.tracker);
+
     }
 
     private synchronized void sendRound(String adress, int portID) throws IOException {
-        
-        try {
-            
-        
-        Random random = new Random(117);
-        Socket socket = new Socket(adress, portID);
-        ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
 
-        
+        try {
+
+            Random random = new Random(117);
+            Socket socket = new Socket(adress, portID);
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+
             try {
 
                 for (int i = 0; i < roundSize; i++) {
@@ -83,16 +79,12 @@ public class SenderCont extends Thread {
                     Object reObject = iStream.readObject();
                     //System.out.println((String) reObject);
                     String reString = (String) reObject;
-                    
+
                     if (reString.equals("ACCEPTED")) {
                         this.tracker++;
                     }
-                    
-                    
-                                
 
                     //System.out.println();
-                    
                     this.summation += iRandom;
 
                 }
@@ -104,15 +96,28 @@ public class SenderCont extends Thread {
                 System.out.println(e);
                 return;
             }
-            
-            
-            } catch (Exception e) {
-                //System.out.println("Could not connect");
-                return;
-        }
 
+        } catch (Exception e) {
+            //System.out.println("Could not connect");
+            return;
         }
 
     }
 
+    public void sendMetaData(MetaData mdt, AddressPort adp) {
+        try {
+            Socket socket = new Socket(adp.adress, adp.portID);
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            
+            oStream.writeObject(mdt);
+            socket.close();
+            
+            
+        } catch (Exception e) {
+            sendMetaData(mdt, adp);
+            return;
+        }
 
+    }
+
+}
