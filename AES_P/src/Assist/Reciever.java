@@ -120,6 +120,8 @@ public class Reciever extends Thread {
             Object obj = iStream.readObject();
             
             String recieved = (String) obj;
+            
+            serverSocket.close();            
             return recieved;
             
             
@@ -147,14 +149,14 @@ public class Reciever extends Thread {
         }
     }
 
-    public String initializeNode(int ID,int portNumber)  {
+    public String initializeNode(int ID,int totalProcesses)  {
         
-        Integer i = portNumber;
+        Integer i = totalProcesses;
         Integer j = ID;
-        String portString = i.toString();
+        String proString = i.toString();
         String idString = j.toString();
         
-        System.out.println(idString);
+        
         
         
         try {
@@ -164,7 +166,7 @@ public class Reciever extends Thread {
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
             
             Object obj = iStream.readObject();
-            oStream.writeObject(portString);
+            oStream.writeObject(proString);
             oStream.writeObject(idString);
             
             
@@ -179,7 +181,7 @@ public class Reciever extends Thread {
             
         } catch (Exception e) {
             System.out.println(e+"Port in use");
-            return initializeNode(ID, portNumber);
+            return initializeNode(ID, totalProcesses);
         }       
         
         

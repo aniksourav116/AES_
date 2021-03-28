@@ -18,15 +18,33 @@ public class NodeProcess2 {
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception{
         int collatorPortID = 22220;
+        int totalProcesses;
         
         System.out.println("Process Started");
         
         //Scanner sc = new Scanner(System.in);
         //int portID = sc.nextInt();
                        
-        Node node = new Node(45);
-        System.out.println("Process Started 2");
-        node.senderC.sendInitializer("localhost", new AddressPort("localhost", 22220));
+        SenderS senderS = new SenderS();
+        IDPort idp = senderS.sendInitializer("localhost",new AddressPort("localhost", collatorPortID));
+        
+        //System.out.println(idp.id);
+        //System.out.println(idp.portID);
+        totalProcesses = idp.id;
+        Node newNode = new Node(idp.portID);
+        
+        newNode.reciever.start();
+        newNode.senderC.start();
+        
+        newNode.senderC.join();
+        
+        senderS.sendSingleString(Integer.toString(idp.portID), new AddressPort("localhost", collatorPortID));
+        newNode.reciever.join();
+        System.out.println("Process Complete");
+        //newNode.reciever.stop();
+        
+        
+        
         
         
         

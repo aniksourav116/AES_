@@ -33,8 +33,14 @@ public class SenderS extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;
         this.roundSize = 5;
-        this.totalMessages = 5000 * 5;
+        this.totalMessages = 10 * 5;
     }
+
+    public SenderS() {
+    }
+    
+    
+    
 
     @Override
     public synchronized void run() {
@@ -121,11 +127,13 @@ public class SenderS extends Thread {
 
     public void sendSingleString(String obj, AddressPort adp) {
         try {
+            System.out.println("Assist.SenderS.sendSingleString()");
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
 
             oStream.writeObject(obj);
             socket.close();
+            System.out.println("Not here");
 
         } catch (Exception e) {
             sendSingleString(obj, adp);

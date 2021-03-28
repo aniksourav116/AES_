@@ -39,7 +39,7 @@ public class CollatorMachine {
         totalProcesses = Integer.parseInt(line);
         portAlloctionStarter = Integer.parseInt(br.readLine());
         
-        
+        /*
         for (int j = 0; j < totalProcesses; j++) {
             String filName = "Nodes"+j+".txt";
             BufferedWriter bw = new BufferedWriter(new FileWriter(filName));
@@ -57,8 +57,18 @@ public class CollatorMachine {
             bw.close();
         }
 
-        
-        
+        */
+        BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
+            //int m = portAlloctionStarter + j;
+            //line = "localhost " + m + "\n";
+            //bw.write(line);
+            for (int i = 0; i < totalProcesses; i++) {
+                
+                int k = portAlloctionStarter + i;
+                line = "localhost " + k + "\n";
+                bw.write(line);
+            }
+            bw.close();
         
         //Vector<Node> nodes = new Vector<Node>();
         //Sender sender = new Sender(1);
@@ -68,11 +78,25 @@ public class CollatorMachine {
         for (int i = 0; i < totalProcesses; i++) {
             //Sting receiver.singleRec();
             Reciever reciever = new Reciever(collatorPort);
-            String sent = reciever.initializeNode(i,portAlloctionStarter+i);
-            System.out.println(sent);
+            String sent = reciever.initializeNode(totalProcesses,portAlloctionStarter+i);
+            //System.out.println(sent);
             
 
         }
+        
+        for (int i = 0; i < totalProcesses; i++) {
+            Reciever reciever = new Reciever(collatorPort);
+            reciever.singleRec();
+            System.out.println("Collator.CollatorMachine.main()");
+        }
+        
+        for (int i = 0; i < totalProcesses; i++) {
+            SenderS senderS = new SenderS();
+            senderS.sendSingleString("STOP", new AddressPort("localhost", portAlloctionStarter+i));
+            System.out.println("Collator.CollatorMachine.main()");
+        }
+        
+        
 
     }
 

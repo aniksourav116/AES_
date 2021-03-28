@@ -18,6 +18,7 @@ public class NodeProcess {
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception{
         int collatorPortID = 22220;
+        String collatorHost = "localhost";
         
         System.out.println("Process Started");
         
