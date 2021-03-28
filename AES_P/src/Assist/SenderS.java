@@ -118,12 +118,12 @@ public class SenderS extends Thread {
         }
 
     }
-    
-    public void sendSingleString(String obj , AddressPort adp) {
+
+    public void sendSingleString(String obj, AddressPort adp) {
         try {
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-            
+
             oStream.writeObject(obj);
             socket.close();
 
@@ -133,11 +133,25 @@ public class SenderS extends Thread {
         }
 
     }
-    
 
     public void sendComplete() {
-        
-        
+
+    }
+
+    public void sendInitializer(String host, AddressPort adp) {
+        try {
+            Socket socket = new Socket(adp.adress, adp.portID);
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            
+            
+            
+            
+        } catch (Exception e) {
+            System.out.println("Failed to Send");
+            sendInitializer(host, adp);
+        }
+
     }
 
 }

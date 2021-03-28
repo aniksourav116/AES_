@@ -36,12 +36,16 @@ public class NodeProcess {
         //node.senderC.sendSingleString(obj, adp);
         
         node.reciever.join();
+        
+        node.prepareMetaData();
+        node.senderC.sendMetaData(node.metaData, new AddressPort("", portID));
+        
         AddressPort adp = null; 
         
         //implement getting collator info
         
         
-        node.senderC.sendMetaData(node.metaData, adp);
+        //node.senderC.sendMetaData(node.metaData, adp);
         
         return;
         

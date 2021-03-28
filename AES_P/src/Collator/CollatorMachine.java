@@ -5,7 +5,6 @@
  */
 package Collator;
 
-
 import Assist.*;
 import Node.Node;
 import java.io.BufferedReader;
@@ -32,33 +31,49 @@ public class CollatorMachine {
         int totalProcesses;
         int portAlloctionStarter;
         int collatorPort = 22222;
-
+        
         BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt"));
         String line;
-
+        
         line = br.readLine();
         totalProcesses = Integer.parseInt(line);
         portAlloctionStarter = Integer.parseInt(br.readLine());
-
-        BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
-        for (int i = 0; i < totalProcesses; i++) {
-            int k = portAlloctionStarter + i;
-            line = "localhost " + k + "\n";
+        
+        
+        for (int j = 0; j < totalProcesses; j++) {
+            String filName = "Nodes"+j+".txt";
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filName));
+            int m = portAlloctionStarter + j;
+            line = "localhost " + m + "\n";
             bw.write(line);
+            for (int i = 0; i < totalProcesses; i++) {
+                if (i == j) {
+                    continue;
+                }
+                int k = portAlloctionStarter + i;
+                line = "localhost " + k + "\n";
+                bw.write(line);
+            }
+            bw.close();
         }
-        bw.close();
+
+        
+        
+        
         //Vector<Node> nodes = new Vector<Node>();
         //Sender sender = new Sender(1);
-        Reciever receiver = new Reciever(collatorPort);
-        
+        //Reciever receiver = new Reciever(collatorPort);
+
         //receiver.completionReciever(collatorPort);
         for (int i = 0; i < totalProcesses; i++) {
-          receiver.singleRec();
+            //Sting receiver.singleRec();
+            Reciever reciever = new Reciever(collatorPort);
+            String sent = reciever.initializeNode(portAlloctionStarter+i);
+            System.out.println(sent);
             
-            
+
         }
 
-        
     }
 
 }
