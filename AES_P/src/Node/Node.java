@@ -123,6 +123,10 @@ public class Node {
         this.metaData.recieveTracker=this.reciever.tracker;
         this.metaData.sendSummation = this.senderC.summation;
         this.metaData.sendTracker = this.senderC.tracker;
+        
+        //this.metaData.printMetadata();
+        
+        
     }
     
             

@@ -12,7 +12,7 @@ package Test;
 public class Fwriter {
     public static void main(String[] args) {
         Integer i = 6;
-        String a = i.toString();
+        String a = i+ " " + i ;
         System.out.println(a);
     }
     

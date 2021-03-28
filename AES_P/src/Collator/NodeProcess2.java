@@ -41,7 +41,14 @@ public class NodeProcess2 {
         senderS.sendSingleString(Integer.toString(idp.portID), new AddressPort("localhost", collatorPortID));
         newNode.reciever.join();
         System.out.println("Process Complete");
-        //newNode.reciever.stop();
+        
+        newNode.prepareMetaData();
+        Thread.sleep(1000);
+        newNode.senderC.sendSingleString(newNode.metaData.metaDataToString(), new  AddressPort("localhost", collatorPortID));
+        //Thread.sleep(1000);
+        
+        
+        
         
         
         

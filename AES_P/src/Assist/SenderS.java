@@ -6,6 +6,9 @@
 package Assist;
 
 import Node.MetaData;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -38,9 +41,6 @@ public class SenderS extends Thread {
 
     public SenderS() {
     }
-    
-    
-    
 
     @Override
     public synchronized void run() {
@@ -110,15 +110,21 @@ public class SenderS extends Thread {
 
     }
 
-    public void sendMetaData(MetaData mdt, AddressPort adp) {
+    public void sendMetaData(MetaData mdt, AddressPort adp) throws InterruptedException {
+        //mdt.printMetadata();
         try {
+            System.out.println("pre socket");
             Socket socket = new Socket(adp.adress, adp.portID);
+            System.out.println("post socket");
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("ost socket");
 
             oStream.writeObject(mdt);
+            System.out.println("ost2 socket");
             socket.close();
 
         } catch (Exception e) {
+            Thread.sleep(1000);                    
             sendMetaData(mdt, adp);
             return;
         }
@@ -130,10 +136,10 @@ public class SenderS extends Thread {
             System.out.println("Assist.SenderS.sendSingleString()");
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-
+            
             oStream.writeObject(obj);
             socket.close();
-            System.out.println("Not here");
+            System.out.println("Not here" + obj);
 
         } catch (Exception e) {
             sendSingleString(obj, adp);
@@ -148,34 +154,31 @@ public class SenderS extends Thread {
 
     public IDPort sendInitializer(String host, AddressPort adp) {
         System.out.println("Assist.SenderS.sendInitializer()");
-        
+
         try {
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             oStream.writeObject(host);
-            
+
             Object sentItem = iStream.readObject();
-            
+
             String idN = (String) sentItem;
-            
+
             int prtID = Integer.parseInt(idN);
-            
-            
-            sentItem = iStream.readObject();            
+
+            sentItem = iStream.readObject();
             socket.close();
-            
-            idN = (String) sentItem;            
-            
-            
+
+            idN = (String) sentItem;
+
             int id = Integer.parseInt(idN);
-            
-            System.out.println("port id "+prtID);
-            System.out.println("id "+id);
-            
-            
+
+            System.out.println("port id " + prtID);
+            System.out.println("id " + id);
+
             return new IDPort(id, prtID);
-            
+
         } catch (Exception e) {
             System.out.println("Failed to Send");
             return sendInitializer(host, adp);
@@ -183,4 +186,85 @@ public class SenderS extends Thread {
 
     }
 
+    public synchronized void sendFinal() throws Exception {
+
+        BufferedReader br = new BufferedReader(new FileReader("Nodes.txt"));
+        String line;
+        int i = 0;
+        try {
+
+            while ((line = br.readLine()) != null) {
+                String[] datas = line.split(" ");
+                String Address = datas[0];
+                int prtID = Integer.parseInt(datas[1]);
+                try {
+                    Socket socket = new Socket(Address, prtID);
+                    ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+                    ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+
+                    oStream.writeObject("STOP");
+                    Object object = iStream.readObject();
+                    socket.close();
+                } catch (Exception e) {
+
+                    System.out.println("Not Connecting");
+                    Thread.sleep(1000);
+                    Socket socket = new Socket(Address, prtID);
+                    ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+                    ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+
+                    oStream.writeObject("STOP");
+                    Object object = iStream.readObject();
+                    socket.close();
+
+                }
+
+                //System.out.println((String) object);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("455");
+
+        }
+
+    }
+
+    public synchronized void sendFinalEach(AddressPort adp) throws Exception {
+
+        try {
+            Socket socket = new Socket(adp.adress, adp.portID);
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+
+            oStream.writeObject("STOP");
+            Object object = iStream.readObject();
+            socket.close();
+
+        } catch (Exception e) {
+            sendFinalEach(adp);
+
+        }
+
+    }
+
+    public synchronized void sendFinal2() throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader("Nodes.txt"));
+        String line;
+        int i = 0;
+        try {
+
+            while ((line = br.readLine()) != null) {
+                String[] datas = line.split(" ");
+                String Address = datas[0];
+                int prtID = Integer.parseInt(datas[1]);
+                
+                this.sendFinalEach(new AddressPort(Address, prtID));
+
+            }
+        }
+        catch(Exception e)
+        {
+                  System.out.println("Assist.SenderS.sendFinal2()");  
+        }
+    }
 }

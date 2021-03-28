@@ -22,6 +22,17 @@ public class MetaData {
         this.recieveSummation = 0;
     }
     
+    public void printMetadata()
+    {
+        System.out.println("Sent: " +sendTracker+" Received: "+recieveTracker);
+        System.out.println("Sent summation: " +sendSummation+" Received Summation: "+recieveSummation);
+    }
+    public String metaDataToString()
+    {
+        String mdt = sendTracker + " " + recieveTracker + " " + sendSummation + " " + recieveSummation;
+        return mdt;
+    }
+    
     
             
     

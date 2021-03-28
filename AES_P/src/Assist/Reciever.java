@@ -6,6 +6,7 @@
 package Assist;
 
 //This is client
+import Node.MetaData;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -112,25 +113,24 @@ public class Reciever extends Thread {
     }
 
     public synchronized String singleRec() {
-        
+
         try {
             ServerSocket serverSocket = new ServerSocket(portID);
-            Socket socket = serverSocket.accept();            
+            Socket socket = serverSocket.accept();
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             Object obj = iStream.readObject();
-            
+
             String recieved = (String) obj;
-            
-            serverSocket.close();            
+            //System.out.println("Assist.Reciever.singleRec()");
+            //System.out.println(recieved);
+            serverSocket.close();
             return recieved;
-            
-            
+
         } catch (Exception e) {
-            System.out.println(e+"Port in use");
+            System.out.println(e + "Port in use");
             return singleRec();
-        }       
-        
-        
+        }
+
     }
 
     @Override
@@ -149,42 +149,109 @@ public class Reciever extends Thread {
         }
     }
 
-    public String initializeNode(int ID,int totalProcesses)  {
-        
+    public String initializeNode(int ID, int totalProcesses) {
+
         Integer i = totalProcesses;
         Integer j = ID;
         String proString = i.toString();
         String idString = j.toString();
-        
-        
-        
-        
+
         try {
             ServerSocket serverSocket = new ServerSocket(portID);
-            Socket socket = serverSocket.accept();            
+            Socket socket = serverSocket.accept();
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+
+            Object obj = iStream.readObject();
+            oStream.writeObject(proString);
+            oStream.writeObject(idString);
+
+            String recieved = (String) obj;
+
+            System.out.println(recieved);
+            serverSocket.close();
+
+            return recieved;
+
+        } catch (Exception e) {
+            System.out.println(e + "Port in use");
+            return initializeNode(ID, totalProcesses);
+        }
+
+    }
+
+    public MetaData recieveMetadata() {
+
+        try {
+            ServerSocket serverSocket = new ServerSocket(portID);
+            Socket socket = serverSocket.accept();
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
             
             Object obj = iStream.readObject();
-            oStream.writeObject(proString);
-            oStream.writeObject(idString);
             
+            MetaData mdt = (MetaData) obj;
             
+            mdt.printMetadata();
+            return mdt;
             
-            String recieved = (String) obj;
-            
-            System.out.println(recieved);
-            serverSocket.close();
-            
-            return recieved;
-            
-            
+
         } catch (Exception e) {
-            System.out.println(e+"Port in use");
-            return initializeNode(ID, totalProcesses);
-        }       
-        
+            return recieveMetadata();
+        }
+
         
     }
+    
+    public String waitForSendFinish() {
+
+        
+
+        try {
+            ServerSocket serverSocket = new ServerSocket(portID);
+            Socket socket = serverSocket.accept();
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
+
+            Object obj = iStream.readObject();
+            String recieved = (String) obj;
+
+            System.out.println(recieved);
+            serverSocket.close();
+
+            return recieved;
+
+        } catch (Exception e) {
+            System.out.println(e + "Port in use");
+            return waitForSendFinish();
+        }
+
+    }
+
+    public String singleRec2() {
+        try {
+            System.out.println("Assist.Reciever.singleRec2 1()");
+            ServerSocket serverSocket = new ServerSocket(portID);
+            System.out.println("Assist.Reciever.singleRec2 2()");
+            Socket socket = serverSocket.accept();
+            System.out.println("Assist.Reciever.singleRec2 3()");
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Assist.Reciever.singleRec2 4()");
+            Object obj = iStream.readObject();
+            serverSocket.close();
+
+            String recieved = (String) obj;
+            System.out.println("Assist.Reciever.singleRec() waeawe");
+            System.out.println(recieved);
+            
+            return recieved;
+
+        } catch (Exception e) {
+            System.out.println(e + "Port in use");
+            return singleRec();
+        }
+        
+    }
+    
 
 }

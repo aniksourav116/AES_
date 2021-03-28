@@ -6,6 +6,7 @@
 package Collator;
 
 import Assist.*;
+import Node.MetaData;
 import Node.Node;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -89,12 +90,36 @@ public class CollatorMachine {
             reciever.singleRec();
             System.out.println("Collator.CollatorMachine.main()");
         }
-        
+        /*
         for (int i = 0; i < totalProcesses; i++) {
             SenderS senderS = new SenderS();
             senderS.sendSingleString("STOP", new AddressPort("localhost", portAlloctionStarter+i));
             System.out.println("Collator.CollatorMachine.main()");
         }
+        */
+        
+        SenderS senderS = new SenderS();
+        senderS.sendFinal2();
+        
+        //Reciever reciever = new Reciever(collatorPort);
+        
+        //collatorPort = 33333;
+        Reciever reciever = new Reciever(collatorPort);
+        for (int i = 0; i < totalProcesses; i++) {
+            
+            
+            String a =  reciever.singleRec2();
+            System.out.println(i+ " metadata: "+ a);
+            
+            
+        }
+        
+        
+        
+        
+        
+        
+        
         
         
 
