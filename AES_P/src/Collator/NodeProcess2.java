@@ -16,14 +16,31 @@ import java.util.Scanner;
  */
 public class NodeProcess2 {
     
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException, InterruptedException, Exception{
+        int collatorPortID = 22220;
         
         System.out.println("Process Started");
-                       
-        Node node = new Node(9990);
         
-        node.recieve();
-        node.sendRound();
+        //Scanner sc = new Scanner(System.in);
+        //int portID = sc.nextInt();
+                       
+        Node node = new Node(45);
+        System.out.println("Process Started 2");
+        node.senderC.sendInitializer("localhost", new AddressPort("localhost", 22220));
+        
+        
+        
+        
+        return;
+        
+        
+                   
+        
+        
+        
+        
+        
+        
         
     }
     

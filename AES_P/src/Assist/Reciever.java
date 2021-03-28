@@ -147,28 +147,39 @@ public class Reciever extends Thread {
         }
     }
 
-    public String initializeNode(int portNumber)  {
+    public String initializeNode(int ID,int portNumber)  {
         
         Integer i = portNumber;
+        Integer j = ID;
         String portString = i.toString();
+        String idString = j.toString();
+        
+        System.out.println(idString);
+        
         
         try {
             ServerSocket serverSocket = new ServerSocket(portID);
             Socket socket = serverSocket.accept();            
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-            oStream.writeObject(portString);
+            
             Object obj = iStream.readObject();
+            oStream.writeObject(portString);
+            oStream.writeObject(idString);
             
             
             
             String recieved = (String) obj;
+            
+            System.out.println(recieved);
+            serverSocket.close();
+            
             return recieved;
             
             
         } catch (Exception e) {
             System.out.println(e+"Port in use");
-            return singleRec();
+            return initializeNode(ID, portNumber);
         }       
         
         

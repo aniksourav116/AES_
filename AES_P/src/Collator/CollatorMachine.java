@@ -30,7 +30,7 @@ public class CollatorMachine {
 
         int totalProcesses;
         int portAlloctionStarter;
-        int collatorPort = 22222;
+        int collatorPort = 22220;
         
         BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt"));
         String line;
@@ -68,7 +68,7 @@ public class CollatorMachine {
         for (int i = 0; i < totalProcesses; i++) {
             //Sting receiver.singleRec();
             Reciever reciever = new Reciever(collatorPort);
-            String sent = reciever.initializeNode(portAlloctionStarter+i);
+            String sent = reciever.initializeNode(i,portAlloctionStarter+i);
             System.out.println(sent);
             
 

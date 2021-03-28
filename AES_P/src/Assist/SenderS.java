@@ -138,18 +138,39 @@ public class SenderS extends Thread {
 
     }
 
-    public void sendInitializer(String host, AddressPort adp) {
+    public IDPort sendInitializer(String host, AddressPort adp) {
+        System.out.println("Assist.SenderS.sendInitializer()");
+        
         try {
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            oStream.writeObject(host);
+            
+            Object sentItem = iStream.readObject();
+            
+            String idN = (String) sentItem;
+            
+            int prtID = Integer.parseInt(idN);
             
             
+            sentItem = iStream.readObject();            
+            socket.close();
             
+            idN = (String) sentItem;            
+            
+            
+            int id = Integer.parseInt(idN);
+            
+            System.out.println("port id "+prtID);
+            System.out.println("id "+id);
+            
+            
+            return new IDPort(id, prtID);
             
         } catch (Exception e) {
             System.out.println("Failed to Send");
-            sendInitializer(host, adp);
+            return sendInitializer(host, adp);
         }
 
     }

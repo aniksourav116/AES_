@@ -26,6 +26,8 @@ public class NodeProcess {
                        
         Node node = new Node(portID);
         
+        
+        
         node.reciever.start();
         node.senderC.start();
         
