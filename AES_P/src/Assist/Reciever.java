@@ -37,8 +37,8 @@ public class Reciever extends Thread {
         try {
 
             String payload = "";
-            
-            System.out.println("Recieving"+portID);
+
+            System.out.println("Recieving" + portID);
             ServerSocket serverSocket = new ServerSocket(portID);
             Socket socket = serverSocket.accept();
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
@@ -52,11 +52,9 @@ public class Reciever extends Thread {
                         Object message = iStream.readObject();
                         payload = (String) message;
 
-                        
-
                         if (payload.equals("STOP")) {
                             serverSocket.close();
-                            
+
                             String returnMessage = "ACCEPTED";
                             oStream.writeObject(returnMessage);
                             return " ";
@@ -100,23 +98,39 @@ public class Reciever extends Thread {
 
     }
 
-    
-    public synchronized void completionReciever(int prtID)
-    {
+    public synchronized void completionReciever(int prtID) {
         try {
             ServerSocket serverSocket = new ServerSocket(prtID);
             Socket socket = serverSocket.accept();
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             Object obj = iStream.readObject();
-            
+
         } catch (Exception e) {
             completionReciever(prtID);
             return;
         }
     }
 
+    public synchronized String singleRec() {
+        
+        try {
+            ServerSocket serverSocket = new ServerSocket(portID);
+            Socket socket = serverSocket.accept();            
+            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+            Object obj = iStream.readObject();
+            
+            String recieved = (String) obj;
+            return recieved;
+            
+            
+        } catch (Exception e) {
+            System.out.println(e+"Port in use");
+            return singleRec();
+        }       
+        
+        
+    }
 
-    
     @Override
     public void run() {
 

@@ -29,6 +29,8 @@ public class NodeProcess {
         node.reciever.start();
         node.senderC.start();
         
+        node.senderC.sendComplete();
+        
         node.senderC.join();
         node.reciever.join();
         AddressPort adp = null; 
