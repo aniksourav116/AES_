@@ -32,6 +32,9 @@ public class NodeProcess {
         node.senderC.sendComplete();
         
         node.senderC.join();
+        
+        //node.senderC.sendSingleString(obj, adp);
+        
         node.reciever.join();
         AddressPort adp = null; 
         

@@ -108,16 +108,20 @@ public class SenderCont extends Thread {
         try {
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-            
+
             oStream.writeObject(mdt);
             socket.close();
-            
-            
+
         } catch (Exception e) {
             sendMetaData(mdt, adp);
             return;
         }
 
+    }
+
+    public void sendComplete() {
+        
+        
     }
 
 }

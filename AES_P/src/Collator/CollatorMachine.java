@@ -51,8 +51,9 @@ public class CollatorMachine {
         //Sender sender = new Sender(1);
         Reciever receiver = new Reciever(collatorPort);
         
-        receiver.completionReciever(collatorPort);
+        //receiver.completionReciever(collatorPort);
         for (int i = 0; i < totalProcesses; i++) {
+          receiver.singleRec();
             
             
         }

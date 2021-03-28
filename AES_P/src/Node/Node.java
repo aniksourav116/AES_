@@ -26,7 +26,8 @@ public class Node {
     public static int processCount = 0; 
     public MetaData metaData;    
     public Vector<AddressPort> AllList;
-    public SenderCont senderC;
+    //public SenderCont senderC;
+    public SenderS senderC;
     //
 
     public Node(int portID) throws IOException {
@@ -40,7 +41,8 @@ public class Node {
         this.metaData = new MetaData();        
         AllList = new Vector<AddressPort>();
         this.getOtherNodeData();
-        this.senderC = new SenderCont(AllList);
+        //this.senderC = new SenderCont(AllList);
+        this.senderC = new SenderS(AllList);
         
     }
     
@@ -54,7 +56,8 @@ public class Node {
         this.metaData = new MetaData();
         AllList = new Vector<AddressPort>();
         this.getOtherNodeData();
-        this.senderC = new SenderCont(AllList);
+        //this.senderC = new SenderCont(AllList);
+        this.senderC = new SenderS(AllList);
         
         
         
