@@ -187,25 +187,21 @@ public class Reciever extends Thread {
             Socket socket = serverSocket.accept();
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-            
+
             Object obj = iStream.readObject();
-            
+
             MetaData mdt = (MetaData) obj;
-            
+
             mdt.printMetadata();
             return mdt;
-            
 
         } catch (Exception e) {
             return recieveMetadata();
         }
 
-        
     }
-    
-    public String waitForSendFinish() {
 
-        
+    public String waitForSendFinish() {
 
         try {
             ServerSocket serverSocket = new ServerSocket(portID);
@@ -238,20 +234,42 @@ public class Reciever extends Thread {
             ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
             System.out.println("Assist.Reciever.singleRec2 4()");
             Object obj = iStream.readObject();
+            socket.close();
             serverSocket.close();
 
             String recieved = (String) obj;
             System.out.println("Assist.Reciever.singleRec() waeawe");
             System.out.println(recieved);
-            
+
             return recieved;
 
         } catch (Exception e) {
             System.out.println(e + "Port in use");
             return singleRec();
         }
+
+    }
+
+    public String recieveNumber(int n) {
+        String s = "";
+        try {
+            ServerSocket serverSocket = new ServerSocket(portID);
+            for (int i = 0; i < n; i++) {
+
+                Socket socket = serverSocket.accept();
+                ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
+                Object obj = iStream.readObject();
+
+                String recieved = (String) obj;
+                s = s+recieved+"\n";
+
+            }
+            return s;
+
+        } catch (Exception e) {
+            return recieveNumber(n);
+        }
         
     }
-    
 
 }

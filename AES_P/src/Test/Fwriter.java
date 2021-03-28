@@ -14,6 +14,11 @@ public class Fwriter {
         Integer i = 6;
         String a = i+ " " + i ;
         System.out.println(a);
+        
+        System.out.println(Integer.parseInt("4648654654618"));
+        
     }
+    
+    
     
 }

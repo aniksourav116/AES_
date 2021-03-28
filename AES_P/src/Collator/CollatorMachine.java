@@ -105,14 +105,52 @@ public class CollatorMachine {
         
         //collatorPort = 33333;
         Reciever reciever = new Reciever(collatorPort);
-        for (int i = 0; i < totalProcesses; i++) {
+        
+        
+        /*for (int i = 0; i < totalProcesses; i++) {
             
             
             String a =  reciever.singleRec2();
+        
             System.out.println(i+ " metadata: "+ a);
             
             
         }
+        */
+        String a =  reciever.recieveNumber(totalProcesses);
+        System.out.println(a);
+        
+        
+        MetaData mdt = new MetaData();
+        System.out.println("Sent----Recieved-----SentSummation-----RecievedSummation");
+        String metadatas[] = a.split("\n");
+        for (int i = 0; i < totalProcesses; i++) {
+            System.out.print("Node "+i);
+            String values[]=metadatas[i].split(" ");
+            int sentT = Integer.parseInt(values[0]);
+            System.out.print("  :");
+            System.out.println(sentT);
+            int receivedT = Integer.parseInt(values[1]);
+            System.out.print("  ");
+            System.out.println(receivedT);
+            long sentSum = Long.parseLong(values[2]);
+            System.out.print("  :");
+            System.out.println(sentSum);
+            long receivedsum = Long.parseLong(values[3]);
+            System.out.print("  ");
+            System.out.println(receivedsum);
+            
+            mdt.sendTracker+=sentT;
+            mdt.recieveTracker+=receivedT;
+            mdt.sendSummation+=sentSum;
+            mdt.recieveSummation+=receivedsum;
+            
+        }
+        
+        System.out.println("Overall");
+        
+        mdt.printMetadata();
+        
         
         
         

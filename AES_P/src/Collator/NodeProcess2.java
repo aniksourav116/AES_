@@ -43,7 +43,7 @@ public class NodeProcess2 {
         System.out.println("Process Complete");
         
         newNode.prepareMetaData();
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         newNode.senderC.sendSingleString(newNode.metaData.metaDataToString(), new  AddressPort("localhost", collatorPortID));
         //Thread.sleep(1000);
         
