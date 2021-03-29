@@ -7,6 +7,8 @@ package Collator;
 
 import Assist.*;
 import Node.Node;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -27,6 +29,16 @@ public class NodeProcess2 {
                        
         SenderS senderS = new SenderS();
         IDPort idp = senderS.sendInitializer("localhost",new AddressPort("localhost", collatorPortID));
+        
+        Reciever reciever = new Reciever(idp.portID);
+        
+        String hostInfo =  reciever.singleRec();
+        System.out.println("HostInfo");
+        System.out.println(hostInfo);
+        BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
+        bw.write(hostInfo);
+        bw.close();
+        
         
         //System.out.println(idp.id);
         //System.out.println(idp.portID);

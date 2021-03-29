@@ -36,7 +36,7 @@ public class SenderS extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;
         this.roundSize = 5;
-        this.totalMessages = 5000 * 5;
+        this.totalMessages = 10 * 5;
     }
 
     public SenderS() {
@@ -152,8 +152,8 @@ public class SenderS extends Thread {
 
     }
 
-    public IDPort sendInitializer(String host, AddressPort adp) {
-        System.out.println("Assist.SenderS.sendInitializer()");
+    public IDPort sendInitializer(String host, AddressPort adp) throws InterruptedException {
+        //System.out.println("Assist.SenderS.sendInitializer()");
 
         try {
             Socket socket = new Socket(adp.adress, adp.portID);
@@ -172,15 +172,16 @@ public class SenderS extends Thread {
 
             idN = (String) sentItem;
 
-            int id = Integer.parseInt(idN);
+            int totalprocesses = Integer.parseInt(idN);
 
             System.out.println("port id " + prtID);
-            System.out.println("id " + id);
+            System.out.println("Total Processes " + totalprocesses);
 
-            return new IDPort(id, prtID);
+            return new IDPort(totalprocesses, prtID);
 
         } catch (Exception e) {
             System.out.println("Failed to Send");
+            //Thread.sleep(1000);
             return sendInitializer(host, adp);
         }
 
