@@ -25,7 +25,7 @@ public class NodeProcess {
         Scanner sc = new Scanner(System.in);
         int portID = sc.nextInt();
                        
-        Node node = new Node(portID);
+        Node node = new Node(portID,2);
         
         
         

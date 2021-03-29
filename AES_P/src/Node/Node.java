@@ -31,8 +31,8 @@ public class Node {
     public  int totalProcesses;
     //
 
-    public Node(int portID) throws IOException {
-        
+    public Node(int portID, int tprocesses) throws IOException {
+        this.totalProcesses = tprocesses;        
         this.nodeID = processCount++;        
         this.portID = portID;        
         this.reciever = new Reciever(portID);
@@ -44,24 +44,6 @@ public class Node {
         this.getOtherNodeData();
         //this.senderC = new SenderCont(AllList);
         this.senderC = new SenderS(AllList);
-        
-    }
-    
-    public Node(int nodeID, int portID) throws IOException {
-        this.nodeID = nodeID;
-        //System.out.println("Node.Node.<init>()" +portID);
-        this.portID = portID;
-        //this.sender = new Sender(portID);
-        this.reciever = new Reciever(portID);
-        //this.status = 0;
-        this.metaData = new MetaData();
-        AllList = new Vector<AddressPort>();
-        this.getOtherNodeData();
-        //this.senderC = new SenderCont(AllList);
-        this.senderC = new SenderS(AllList);
-        
-        
-        
         
     }
     
@@ -85,10 +67,17 @@ public class Node {
                 this.address = Address;
             }
             i++;
+            if (i>=totalProcesses) {
+                break;
+                
+            }
+            //br.close();
             
             
             
-        }      
+        }  
+        
+        br.close();
         
         
         

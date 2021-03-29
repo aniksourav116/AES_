@@ -43,7 +43,7 @@ public class NodeProcess2 {
         //System.out.println(idp.id);
         //System.out.println(idp.portID);
         totalProcesses = idp.id;
-        Node newNode = new Node(idp.portID);
+        Node newNode = new Node(idp.portID, totalProcesses);
         
         newNode.reciever.start();
         newNode.senderC.start();

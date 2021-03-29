@@ -54,7 +54,7 @@ public class Collator {
                 Vector<Node> nodes = new Vector<Node>();
                 
                 for (int i = 0; i < totalProcesses; i++) {
-                Node node = new Node(i, portAlloctionStarter + i);
+                Node node = new Node( portAlloctionStarter + i,totalProcesses);
                 node.reciever.start();
                 node.senderC.start();
                 nodes.add(node);
