@@ -28,6 +28,7 @@ public class Node {
     public Vector<AddressPort> AllList;
     //public SenderCont senderC;
     public SenderS senderC;
+    public  int totalProcesses;
     //
 
     public Node(int portID) throws IOException {

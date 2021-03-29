@@ -63,12 +63,13 @@ public class CollatorMachine {
         System.out.println(hostsInfo);
 
         System.out.println("Initialized");
-        
+        /*
         for (int i = 0; i < totalProcesses; i++) {
             SenderS senderS = new SenderS();
             AddressPort adp = adresses.get(i);
             senderS.sendSingleString(hostsInfo, adp);
         }
+        */
         
         
         for (int i = 0; i < totalProcesses; i++) {

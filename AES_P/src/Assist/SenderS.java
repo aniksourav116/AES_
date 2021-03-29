@@ -36,7 +36,7 @@ public class SenderS extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;
         this.roundSize = 5;
-        this.totalMessages = 10 * 5;
+        this.totalMessages = 5000 * 5;
     }
 
     public SenderS() {

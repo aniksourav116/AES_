@@ -30,14 +30,14 @@ public class NodeProcess2 {
         SenderS senderS = new SenderS();
         IDPort idp = senderS.sendInitializer("localhost",new AddressPort("localhost", collatorPortID));
         
-        Reciever reciever = new Reciever(idp.portID);
+        //Reciever reciever = new Reciever(idp.portID);
         
-        String hostInfo =  reciever.singleRec();
-        System.out.println("HostInfo");
-        System.out.println(hostInfo);
-        BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
-        bw.write(hostInfo);
-        bw.close();
+        //String hostInfo =  reciever.singleRec();
+        //System.out.println("HostInfo");
+        //System.out.println(hostInfo);
+        //BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
+       // bw.write(hostInfo);
+       // bw.close();
         
         
         //System.out.println(idp.id);
