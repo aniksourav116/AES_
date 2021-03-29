@@ -20,8 +20,7 @@ import java.util.Vector;
 public class Node {
     public int nodeID;
     public int portID;
-    public String address;
-    public Sender sender;
+    public String address;  
     public Reciever reciever;
     public static int processCount = 0; 
     public MetaData metaData;    
@@ -94,19 +93,7 @@ public class Node {
     
     
     
-    public void sendRound() throws IOException
-    {
-        Random random = new Random();
-        int choice = random.nextInt(AllList.size());
-        
-        AddressPort adp = AllList.get(choice);
-        
-        sender  = new Sender(adp.portID, adp.adress);
-        
-        sender.start();
-        
-        
-    }
+  
     
     public void prepareMetaData(){
         this.metaData.recieveSummation=this.reciever.summation;

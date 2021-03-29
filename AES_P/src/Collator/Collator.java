@@ -1,7 +1,7 @@
 
 package Collator;
 
-import Assist.Sender;
+
 import Assist.SenderS;
 import Node.Node;
 import java.io.BufferedReader;
