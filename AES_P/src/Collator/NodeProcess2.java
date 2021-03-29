@@ -40,6 +40,9 @@ public class NodeProcess2 {
         bw.close();
         
         
+        
+        
+        
         //System.out.println(idp.id);
         //System.out.println(idp.portID);
         totalProcesses = idp.id;
