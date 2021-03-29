@@ -36,7 +36,7 @@ public class SenderS extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;
         this.roundSize = 5;
-        this.totalMessages = 5000 * 5;
+        this.totalMessages = 10 * 5;
     }
 
     public SenderS() {
@@ -187,7 +187,7 @@ public class SenderS extends Thread {
 
     }
 
-    public synchronized void sendFinal() throws Exception {
+    public synchronized void sendFinal(int totalprocesses) throws Exception {
 
         BufferedReader br = new BufferedReader(new FileReader("Nodes.txt"));
         String line;
@@ -268,4 +268,7 @@ public class SenderS extends Thread {
                   System.out.println("Assist.SenderS.sendFinal2()");  
         }
     }
+    
+    
+    
 }

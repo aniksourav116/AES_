@@ -2,6 +2,7 @@
 package Collator;
 
 import Assist.Sender;
+import Assist.SenderS;
 import Node.Node;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -70,9 +71,9 @@ public class Collator {
                 
                 }
                 
-                Sender sender = new Sender(1, "");
+                SenderS sender = new SenderS();
                 
-                sender.sendFinal();
+                sender.sendFinal(totalProcesses);
                 
                 for (int i = 0; i < totalProcesses; i++) {
                 Node node = nodes.get(i);
