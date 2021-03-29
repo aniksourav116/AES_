@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Assist;
 
-//This is client
 import Node.MetaData;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,10 +10,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Anik Sourav
- */
 public class Reciever extends Thread {
 
     public int portID;
@@ -99,19 +89,6 @@ public class Reciever extends Thread {
 
     }
 
-    public synchronized void completionReciever(int prtID) {
-        try {
-            ServerSocket serverSocket = new ServerSocket(prtID);
-            Socket socket = serverSocket.accept();
-            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-            Object obj = iStream.readObject();
-
-        } catch (Exception e) {
-            completionReciever(prtID);
-            return;
-        }
-    }
-
     public synchronized String singleRec() {
 
         try {
@@ -170,8 +147,7 @@ public class Reciever extends Thread {
 
             System.out.println(recieved);
             serverSocket.close();
-            
-            
+
             return recieved;
 
         } catch (Exception e) {
@@ -262,7 +238,7 @@ public class Reciever extends Thread {
                 Object obj = iStream.readObject();
 
                 String recieved = (String) obj;
-                s = s+recieved+"\n";
+                s = s + recieved + "\n";
 
             }
             return s;
@@ -270,7 +246,7 @@ public class Reciever extends Thread {
         } catch (Exception e) {
             return recieveNumber(n);
         }
-        
+
     }
 
 }
