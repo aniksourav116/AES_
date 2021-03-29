@@ -115,9 +115,9 @@ public class Reciever extends Thread {
 
         try {
             while (true) {
-                //System.out.println("Running Reciever");
+
                 recieve();
-                //System.out.println("Recieve Done");
+
                 break;
             }
 
@@ -153,76 +153,6 @@ public class Reciever extends Thread {
         } catch (Exception e) {
             System.out.println(e + "Port in use");
             return initializeNode(ID, totalProcesses);
-        }
-
-    }
-
-    public MetaData recieveMetadata() {
-
-        try {
-            ServerSocket serverSocket = new ServerSocket(portID);
-            Socket socket = serverSocket.accept();
-            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-
-            Object obj = iStream.readObject();
-
-            MetaData mdt = (MetaData) obj;
-
-            mdt.printMetadata();
-            return mdt;
-
-        } catch (Exception e) {
-            return recieveMetadata();
-        }
-
-    }
-
-    public String waitForSendFinish() {
-
-        try {
-            ServerSocket serverSocket = new ServerSocket(portID);
-            Socket socket = serverSocket.accept();
-            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-            ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
-
-            Object obj = iStream.readObject();
-            String recieved = (String) obj;
-
-            System.out.println(recieved);
-            serverSocket.close();
-
-            return recieved;
-
-        } catch (Exception e) {
-            System.out.println(e + "Port in use");
-            return waitForSendFinish();
-        }
-
-    }
-
-    public String singleRec2() {
-        try {
-            System.out.println("Assist.Reciever.singleRec2 1()");
-            ServerSocket serverSocket = new ServerSocket(portID);
-            System.out.println("Assist.Reciever.singleRec2 2()");
-            Socket socket = serverSocket.accept();
-            System.out.println("Assist.Reciever.singleRec2 3()");
-            ObjectInputStream iStream = new ObjectInputStream(socket.getInputStream());
-            System.out.println("Assist.Reciever.singleRec2 4()");
-            Object obj = iStream.readObject();
-            socket.close();
-            serverSocket.close();
-
-            String recieved = (String) obj;
-            System.out.println("Assist.Reciever.singleRec() waeawe");
-            System.out.println(recieved);
-
-            return recieved;
-
-        } catch (Exception e) {
-            System.out.println(e + "Port in use");
-            return singleRec();
         }
 
     }
