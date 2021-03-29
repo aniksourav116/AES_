@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Collator;
 
 import Assist.*;
@@ -19,10 +15,7 @@ import java.util.HashMap;
 import java.util.Vector;
 import javax.sound.midi.Receiver;
 
-/**
- *
- * @author Anik Sourava
- */
+
 public class CollatorMachine {
 
     public int processCount = 0;
@@ -63,13 +56,7 @@ public class CollatorMachine {
         System.out.println(hostsInfo);
 
         System.out.println("Initialized");
-        /*
-        for (int i = 0; i < totalProcesses; i++) {
-            SenderS senderS = new SenderS();
-            AddressPort adp = adresses.get(i);
-            senderS.sendSingleString(hostsInfo, adp);
-        }
-        */
+      
         
         
         for (int i = 0; i < totalProcesses; i++) {
@@ -77,31 +64,14 @@ public class CollatorMachine {
             reciever.singleRec();
             System.out.println("Collator.CollatorMachine.main()");
         }
-        /*
-        for (int i = 0; i < totalProcesses; i++) {
-            SenderS senderS = new SenderS();
-            senderS.sendSingleString("STOP", new AddressPort("localhost", portAlloctionStarter+i));
-            System.out.println("Collator.CollatorMachine.main()");
-        }
-         */
+       
 
         SenderS senderS = new SenderS();
         senderS.sendFinal2();
 
-        //Reciever reciever = new Reciever(collatorPort);
-        //collatorPort = 33333;
+        
         Reciever reciever = new Reciever(collatorPort + 2);
 
-        /*for (int i = 0; i < totalProcesses; i++) {
-            
-            
-            String a =  reciever.singleRec2();
-        
-            System.out.println(i+ " metadata: "+ a);
-            
-            
-        }
-         */
         String a = reciever.recieveNumber(totalProcesses);
         System.out.println(a);
 

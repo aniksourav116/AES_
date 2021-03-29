@@ -78,23 +78,23 @@ public class SenderS extends Thread {
 
                     Integer iRandom = random.nextInt();
 
-                    //int ir = iRandom;
+                    
                     String payload = iRandom.toString();
 
                     oStream.writeObject(payload);
                     Object reObject = iStream.readObject();
-                    //System.out.println((String) reObject);
+                    
                     String reString = (String) reObject;
 
                     if (reString.equals("ACCEPTED")) {
                         this.tracker++;
                     }
 
-                    //System.out.println();
+                    
                     this.summation += iRandom;
 
                 }
-                //this.tracker+=5;
+                
                 socket.close();
 
             } catch (Exception e) {
@@ -104,7 +104,7 @@ public class SenderS extends Thread {
             }
 
         } catch (Exception e) {
-            System.out.println("Could not connect");
+            //System.out.println("This Node is busy....\n trying another one");
             return;
         }
 
