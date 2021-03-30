@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class NodeProcess2 {
+public class Process {
     
     public static void main(String[] args) throws IOException, InterruptedException, Exception{
         int collatorPortID = 22220;

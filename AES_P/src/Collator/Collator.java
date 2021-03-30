@@ -1,8 +1,8 @@
 
 package Collator;
 
-
-import Assist.SenderS;
+import Assist.*;
+import Node.MetaData;
 import Node.Node;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Vector;
+import javax.sound.midi.Receiver;
 
 
 public class Collator {
@@ -21,81 +22,89 @@ public class Collator {
 
     public static void main(String[] args) throws Exception {
 
-        int totalProcesses = 0;
+        int totalProcesses;
         int portAlloctionStarter;
+        int collatorPort = 22220;
 
-        BufferedReader br = new BufferedReader(new FileReader("Collator.txt"));
-        String line = null;
+        BufferedReader br = new BufferedReader(new FileReader("CollatorMachine.txt"));
+        String line;
 
         line = br.readLine();
         totalProcesses = Integer.parseInt(line);
         portAlloctionStarter = Integer.parseInt(br.readLine());
-        
-        BufferedWriter bw = new BufferedWriter( new FileWriter("Nodes.txt"));
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter("Nodes.txt"));
+
         for (int i = 0; i < totalProcesses; i++) {
+
             int k = portAlloctionStarter + i;
-            line = "localhost "+k+"\n";
+            line = "localhost " + k + "\n";
             bw.write(line);
         }
-        
-        
         bw.close();
 
+        String hostsInfo = "";
+        Vector<AddressPort> adresses = new Vector<AddressPort>();
+        for (int i = 0; i < totalProcesses; i++) {
+
+            Reciever reciever = new Reciever(collatorPort);
+            String received = reciever.initializeNode(totalProcesses, portAlloctionStarter + i);
+            adresses.add(new AddressPort(received, portAlloctionStarter+i));
+            hostsInfo += received + " " + (portAlloctionStarter + i) + "\n";
+        }
+        System.out.println("HostInfo: ");
+        System.out.println(hostsInfo);
+
+        System.out.println("Initialized");
+      
         
-                
-                
-                
-                Vector<Node> nodes = new Vector<Node>();
-                
-                for (int i = 0; i < totalProcesses; i++) {
-                Node node = new Node( portAlloctionStarter + i,totalProcesses);
-                node.reciever.start();
-                node.senderC.start();
-                nodes.add(node);
-                //node.sendRound();
-                //
-                //node.senderC.start();
-                
-                }
-                
-                int totalS = 0;
-                int totalR = 0;
-                long sumS=0;
-                long sumR=0;
-                
-                
-                for (int i = 0; i < totalProcesses; i++) {
-                Node node = nodes.get(i);
-                node.senderC.join();
-                //Thread.sleep(5000);
-                
-                }
-                
-                SenderS sender = new SenderS();
-                
-                sender.sendFinal(totalProcesses);
-                
-                for (int i = 0; i < totalProcesses; i++) {
-                Node node = nodes.get(i);
-                node.reciever.join();
-                
-                System.out.println("Node " + node.nodeID + "Sent " + node.senderC.tracker);
-                System.out.println("Node " + node.nodeID + "Recieved " + node.reciever.tracker);
-                totalS += node.senderC.tracker;
-                totalR += node.reciever.tracker;
-                sumS+=node.senderC.summation;
-                sumR+=node.reciever.summation;
-                
-                }
-                
-                System.out.println("Total Sent: " + totalS);
-                System.out.println("Total Recieved: " + totalR);
-                
-                System.out.println("Total Sent Sum: " + sumS);
-                System.out.println("Total Recieved Sum: " + sumR);
-                
-                System.out.println("All done");
-                
+        
+        for (int i = 0; i < totalProcesses; i++) {
+            Reciever reciever = new Reciever(collatorPort + 1);
+            reciever.singleRec();
+            System.out.println("Collator.CollatorMachine.main()");
+        }
+       
+
+        SenderS senderS = new SenderS();
+        senderS.sendFinal2();
+
+        
+        Reciever reciever = new Reciever(collatorPort + 2);
+
+        String a = reciever.recieveNumber(totalProcesses);
+        System.out.println(a);
+
+        MetaData mdt = new MetaData();
+        System.out.println("Sent----Recieved-----SentSummation-----RecievedSummation");
+        String metadatas[] = a.split("\n");
+        for (int i = 0; i < totalProcesses; i++) {
+            System.out.print("\nNode " + i);
+            String values[] = metadatas[i].split(" ");
+            int sentT = Integer.parseInt(values[0]);
+            System.out.print("  :");
+            System.out.print(sentT);
+            int receivedT = Integer.parseInt(values[1]);
+            System.out.print("  :");
+            System.out.print(receivedT);
+            long sentSum = Long.parseLong(values[2]);
+            System.out.print("  :");
+            System.out.print(sentSum);
+            long receivedsum = Long.parseLong(values[3]);
+            System.out.print("  :");
+            System.out.print(receivedsum);
+
+            mdt.sendTracker += sentT;
+            mdt.recieveTracker += receivedT;
+            mdt.sendSummation += sentSum;
+            mdt.recieveSummation += receivedsum;
+
+        }
+
+        System.out.println("\nOverall");
+
+        mdt.printMetadata();
+
     }
 
 }
