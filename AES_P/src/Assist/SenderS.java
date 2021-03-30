@@ -36,7 +36,7 @@ public class SenderS extends Thread {
         this.roundSize = 5;
         this.AllList = AllList;
         this.roundSize = 5;
-        this.totalMessages = 100 * roundSize;
+        this.totalMessages = 1 * roundSize;
     }
 
     public SenderS() {
@@ -133,7 +133,7 @@ public class SenderS extends Thread {
 
     public void sendSingleString(String obj, AddressPort adp) {
         try {
-            System.out.println("Assist.SenderS.sendSingleString()");
+            //System.out.println("Assist.SenderS.sendSingleString()");
             Socket socket = new Socket(adp.adress, adp.portID);
             ObjectOutputStream oStream = new ObjectOutputStream(socket.getOutputStream());
             
@@ -265,7 +265,7 @@ public class SenderS extends Thread {
         }
         catch(Exception e)
         {
-                  System.out.println("Assist.SenderS.sendFinal2()");  
+                  //System.out.println("Assist.SenderS.sendFinal2()");  
         }
     }
     
