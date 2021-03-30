@@ -15,8 +15,7 @@ public class Process {
         int collatorPortID = 22220;
         int totalProcesses;
         
-        System.out.println("Process Started");
-        
+        System.out.println("Process Started");       
         
                        
         SenderS senderS = new SenderS();
